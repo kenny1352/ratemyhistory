@@ -37,6 +37,10 @@ def mainIndex():
     
     return render_template('index.html')
     
+@app.route('/forms.html')
+def formreply():
+    return render_template('forms.html')
+    
 
 # start the server
 if __name__ == '__main__':
