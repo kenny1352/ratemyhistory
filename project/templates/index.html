@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin</a>
+                <a class="navbar-brand" href="index.html">Rate My History</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -60,10 +60,19 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>User</strong>
                                         </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                        
+                                        
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i></p>
+                                        <p id="time"></p>
+                                        
+                                            <script>
+                                            
+                                            var d = new Date();
+                                            document.getElementById("time").innerHTML = d.toDateString();
+                                            </script>
+                                        <p>Message content 1...</p>
                                     </div>
                                 </div>
                             </a>
@@ -75,10 +84,10 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>User</strong>
                                         </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM OR we can change this to look like above?</p>
+                                        <p>Massage content 2...</p>
                                     </div>
                                 </div>
                             </a>
@@ -90,10 +99,10 @@
                                         <img class="media-object" src="http://placehold.it/50x50" alt="">
                                     </span>
                                     <div class="media-body">
-                                        <h5 class="media-heading"><strong>John Smith</strong>
+                                        <h5 class="media-heading"><strong>User</strong>
                                         </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32 PM</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur...</p>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Find way to do date and time pretty</p>
+                                        <p>Message content 3...</p>
                                     </div>
                                 </div>
                             </a>
@@ -165,10 +174,10 @@
                         <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
                     </li>
                     <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
+                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Login</a>
                     </li>
                     <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
+                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Timeline</a>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
@@ -182,11 +191,11 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Blank Page</a>
+                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Popular Events</a>
                     </li>
-                    <li>
-                        <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>
-                    </li>
+                    <!--<li>-->
+                    <!--    <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>-->
+                    <!--</li>-->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->

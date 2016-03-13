@@ -3,6 +3,8 @@ import uuid
 import psycopg2
 import psycopg2.extras
 import crypt, getpass, pwd
+import time
+from datetime import date
 from flask import Flask, redirect, url_for,session, render_template, jsonify, request
 #from flask.ext.socketio import SocketIO, emit, join_room, leave_room
 
@@ -15,6 +17,7 @@ def connectToDB():
     #change connection to session db
     connectionString = 'dbname=ratemyhistory user=assist password=assist host=localhost'
     print connectionString
+
     try:
         return psycopg2.connect(connectionString)
     except:
