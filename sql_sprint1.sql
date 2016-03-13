@@ -26,7 +26,7 @@ INSERT INTO events (Name, Location, Description, Year) Values
 -- Table structure for table people
 --
 
-DROP TABLE IF EXISTS people
+DROP TABLE IF EXISTS people;
 CREATE TABLE people (
     ID serial NOT NULL,
     Name varchar(50) NOT NULL default '',
@@ -44,7 +44,7 @@ INSERT INTO people (Name, Birth, Death, Description) Values
 -- Table structure for table users
 --
 
-DROP TABLE IF EXISTS users
+DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     ID serial NOT NULL,
     Username varchar(20) NOT NULL,
@@ -61,3 +61,8 @@ CREATE TABLE users (
     Fax varchar(24),
     PRIMARY KEY (ID)
 );
+
+GRANT INSERT, UPDATE, SELECT ON ALL TABLES IN SCHEMA public To assist;
+GRANT USAGE ON users_id_seq to assist;
+GRANT USAGE ON events_id_seq to assist;
+GRANT USAGE ON people_id_seq to assist;
