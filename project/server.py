@@ -13,7 +13,7 @@ app.config['SECRET_KEY'] = 'secret!'
 
 def connectToDB():
     #change connection to session db
-    connectionString = 'dbname=ratemyhistory user=rateuser password=history host=localhost'
+    connectionString = 'dbname=ratemyhistory user=assist password=assist host=localhost'
     print connectionString
     try:
         return psycopg2.connect(connectionString)
@@ -30,13 +30,47 @@ def connectToDB():
         
         
         
-        
-@app.route('/')
+#for displaying html pages        
+@app.route('/index.html')
 def mainIndex():
     print 'in hello world'
     
     return render_template('index.html')
     
+    
+@app.route('/forms.html')
+def forms():
+    print 'in forms'
+    
+    return render_template('forms.html')
+    
+    
+@app.route('/charts.html')
+def charts():
+    print 'in charts'
+    
+    return render_template('charts.html')
+    
+    
+@app.route('/tables.html')
+def tables():
+    print 'in tables'
+    
+    return render_template('tables.html')
+    
+    
+#probably remove these later, but added them just to see what things could look like
+@app.route('/bootstrap-elements.html')
+def bootstrap():
+    print 'in tables'
+    
+    return render_template('bootstrap-elements.html')
+    
+@app.route('/bootstrap-grid.html')
+def bootstrap2():
+    print 'in tables'
+    
+    return render_template('bootstrap-grid.html')
 
 # start the server
 if __name__ == '__main__':
