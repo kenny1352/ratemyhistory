@@ -3,7 +3,7 @@ import uuid
 import psycopg2
 import psycopg2.extras
 import crypt, getpass, pwd
-from flask import Flask, redirect, url_for,session, render_template, jsonify, request
+from flask import Flask,render_template, redirect, url_for,session, jsonify, request
 #from flask.ext.socketio import SocketIO, emit, join_room, leave_room
 
 app = Flask(__name__)
@@ -16,6 +16,7 @@ def connectToDB():
     connectionString = 'dbname=ratemyhistory user=assist password=assist host=localhost'
     print connectionString
     try:
+        print("connected!")
         return psycopg2.connect(connectionString)
     except:
         print("Can't connect to database")
@@ -28,8 +29,8 @@ def connectToDB():
 #     conn = connectToDB()
 #     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)        
         
-        
-        
+
+print 'before app route'
 #for displaying html pages        
 @app.route('/index.html')
 def mainIndex():
@@ -74,4 +75,4 @@ def bootstrap2():
 
 # start the server
 if __name__ == '__main__':
-        app.run(host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)        
+        app.run(host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)    
