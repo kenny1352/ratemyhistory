@@ -34,7 +34,7 @@ def connectToDB():
         
 
 #for displaying html pages        
-@app.route('/index.html')
+@app.route('/')
 def mainIndex():
     print 'in hello world'
     
