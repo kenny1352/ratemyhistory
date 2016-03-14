@@ -3,7 +3,9 @@ import uuid
 import psycopg2
 import psycopg2.extras
 import crypt, getpass, pwd
-from flask import Flask,render_template, redirect, url_for,session, jsonify, request
+import time
+from datetime import date
+from flask import Flask, redirect, url_for,session, render_template, jsonify, request
 #from flask.ext.socketio import SocketIO, emit, join_room, leave_room
 
 app = Flask(__name__)
@@ -15,6 +17,7 @@ def connectToDB():
     #change connection to session db
     connectionString = 'dbname=ratemyhistory user=assist password=assist host=localhost'
     print connectionString
+
     try:
         print("connected!")
         return psycopg2.connect(connectionString)
@@ -30,7 +33,8 @@ def connectToDB():
 #     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)        
         
 
-print 'before app route'
+
+
 #for displaying html pages        
 @app.route('/index.html')
 def mainIndex():
