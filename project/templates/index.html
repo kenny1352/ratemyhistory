@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin - Bootstrap Admin Template</title>
+    <title>Rate My History</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
@@ -46,7 +46,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">Rate My History</a>
+                <a class="navbar-brand" href="/index.html">Rate My History</a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -101,7 +101,7 @@
                                     <div class="media-body">
                                         <h5 class="media-heading"><strong>User</strong>
                                         </h5>
-                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Find way to do date and time pretty</p>
+                                        <p class="small text-muted"><i class="fa fa-clock-o"></i> Yesterday at 4:32</p>
                                         <p>Message content 3...</p>
                                     </div>
                                 </div>
@@ -116,22 +116,19 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu alert-dropdown">
                         <li>
-                            <a href="#">Alert Name <span class="label label-default">Alert Badge</span></a>
+                            <a href="#">New Date <span class="label label-default">Alert Badge</span></a>
                         </li>
                         <li>
-                            <a href="#">Alert Name <span class="label label-primary">Alert Badge</span></a>
+                            <a href="#">Trending <span class="label label-primary">Alert Badge</span></a>
                         </li>
                         <li>
-                            <a href="#">Alert Name <span class="label label-success">Alert Badge</span></a>
+                            <a href="#">Check Out<span class="label label-success">Alert Badge</span></a>
                         </li>
                         <li>
-                            <a href="#">Alert Name <span class="label label-info">Alert Badge</span></a>
+                            <a href="#">Updates<span class="label label-info">Alert Badge</span></a>
                         </li>
                         <li>
-                            <a href="#">Alert Name <span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Alert Name <span class="label label-danger">Alert Badge</span></a>
+                            <a href="#">Breaking News<span class="label label-warning">Alert Badge</span></a>
                         </li>
                         <li class="divider"></li>
                         <li>
@@ -162,22 +159,22 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="/index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
                     </li>
                     <li>
-                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                        <a href="/charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
                     </li>
                     <li>
-                        <a href="tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
+                        <a href="/tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
                     </li>
                     <li>
-                        <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                        <a href="/forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                    </li
+                    <li>
+                        <a href="/bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Login</a>
                     </li>
                     <li>
-                        <a href="bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Login</a>
-                    </li>
-                    <li>
-                        <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Timeline</a>
+                        <a href="/bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Timeline</a>
                     </li>
                     <li>
                         <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
@@ -240,7 +237,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">26</div>
-                                        <div>New Comments!</div>
+                                        <div>New Events!</div>
                                     </div>
                                 </div>
                             </div>
@@ -262,7 +259,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">12</div>
-                                        <div>New Tasks!</div>
+                                        <div>Popular Events!</div>
                                     </div>
                                 </div>
                             </div>
@@ -284,7 +281,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">124</div>
-                                        <div>New Orders!</div>
+                                        <div>Top Rates!</div>
                                     </div>
                                 </div>
                             </div>
@@ -306,7 +303,7 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
+                                        <div>Your Favorite!</div>
                                     </div>
                                 </div>
                             </div>
@@ -326,7 +323,7 @@
                     <div class="col-lg-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Area Chart</h3>
+                                <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>Trending Chart</h3>
                             </div>
                             <div class="panel-body">
                                 <div id="morris-area-chart"></div>
@@ -340,7 +337,7 @@
                     <div class="col-lg-4">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Donut Chart</h3>
+                                <h3 class="panel-title"><i class="fa fa-long-arrow-right fa-fw"></i> Most Viewed Historyical Events</h3>
                             </div>
                             <div class="panel-body">
                                 <div id="morris-donut-chart"></div>
@@ -367,11 +364,11 @@
                                     </a>
                                     <a href="#" class="list-group-item">
                                         <span class="badge">23 minutes ago</span>
-                                        <i class="fa fa-fw fa-truck"></i> Order 392 shipped
+                                        <i class="fa fa-fw fa-truck"></i> Historical Event Trending
                                     </a>
                                     <a href="#" class="list-group-item">
                                         <span class="badge">46 minutes ago</span>
-                                        <i class="fa fa-fw fa-money"></i> Invoice 653 has been paid
+                                        <i class="fa fa-fw fa-money"></i> Newe Event Added
                                     </a>
                                     <a href="#" class="list-group-item">
                                         <span class="badge">1 hour ago</span>
@@ -379,7 +376,7 @@
                                     </a>
                                     <a href="#" class="list-group-item">
                                         <span class="badge">2 hours ago</span>
-                                        <i class="fa fa-fw fa-check"></i> Completed task: "pick up dry cleaning"
+                                        <i class="fa fa-fw fa-check"></i> Completed task: "Added new event"
                                     </a>
                                     <a href="#" class="list-group-item">
                                         <span class="badge">yesterday</span>
@@ -406,61 +403,61 @@
                                     <table class="table table-bordered table-hover table-striped">
                                         <thead>
                                             <tr>
-                                                <th>Order #</th>
-                                                <th>Order Date</th>
-                                                <th>Order Time</th>
-                                                <th>Amount (USD)</th>
+                                                <th>Historical Event</th>
+                                                <th>Event Date</th>
+                                                <th>Place</th>
+                                                <th>Popularity</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <td>3326</td>
-                                                <td>10/21/2013</td>
-                                                <td>3:29 PM</td>
-                                                <td>$321.33</td>
+                                                <td>Obama Elected to Presidential Office</td>
+                                                <td>1/20/2008</td>
+                                                <td>Washington DC</td>
+                                                <td>5</td>
                                             </tr>
-                                            <tr>
-                                                <td>3325</td>
-                                                <td>10/21/2013</td>
-                                                <td>3:20 PM</td>
-                                                <td>$234.34</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3324</td>
-                                                <td>10/21/2013</td>
-                                                <td>3:03 PM</td>
-                                                <td>$724.17</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3323</td>
-                                                <td>10/21/2013</td>
-                                                <td>3:00 PM</td>
-                                                <td>$23.71</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3322</td>
-                                                <td>10/21/2013</td>
-                                                <td>2:49 PM</td>
-                                                <td>$8345.23</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3321</td>
-                                                <td>10/21/2013</td>
-                                                <td>2:23 PM</td>
-                                                <td>$245.12</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3320</td>
-                                                <td>10/21/2013</td>
-                                                <td>2:15 PM</td>
-                                                <td>$5663.54</td>
-                                            </tr>
-                                            <tr>
-                                                <td>3319</td>
-                                                <td>10/21/2013</td>
-                                                <td>2:13 PM</td>
-                                                <td>$943.45</td>
-                                            </tr>
+                                            <!--<tr>-->
+                                            <!--    <td>3325</td>-->
+                                            <!--    <td>10/21/2013</td>-->
+                                            <!--    <td>3:20 PM</td>-->
+                                            <!--    <td>$234.34</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                            <!--    <td>3324</td>-->
+                                            <!--    <td>10/21/2013</td>-->
+                                            <!--    <td>3:03 PM</td>-->
+                                            <!--    <td>$724.17</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                            <!--    <td>3323</td>-->
+                                            <!--    <td>10/21/2013</td>-->
+                                            <!--    <td>3:00 PM</td>-->
+                                            <!--    <td>$23.71</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                            <!--    <td>3322</td>-->
+                                            <!--    <td>10/21/2013</td>-->
+                                            <!--    <td>2:49 PM</td>-->
+                                            <!--    <td>$8345.23</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                            <!--    <td>3321</td>-->
+                                            <!--    <td>10/21/2013</td>-->
+                                            <!--    <td>2:23 PM</td>-->
+                                            <!--    <td>$245.12</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                            <!--    <td>3320</td>-->
+                                            <!--    <td>10/21/2013</td>-->
+                                            <!--    <td>2:15 PM</td>-->
+                                            <!--    <td>$5663.54</td>-->
+                                            <!--</tr>-->
+                                            <!--<tr>-->
+                                            <!--    <td>3319</td>-->
+                                            <!--    <td>10/21/2013</td>-->
+                                            <!--    <td>2:13 PM</td>-->
+                                            <!--    <td>$943.45</td>-->
+                                            <!--</tr>-->
                                         </tbody>
                                     </table>
                                 </div>

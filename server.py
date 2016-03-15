@@ -32,9 +32,9 @@ def connectToDB():
 #     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)        
         
         
-
+        
 #for displaying html pages        
-@app.route('/')
+@app.route('/index.html')
 def mainIndex():
     print 'in hello world'
     
@@ -78,11 +78,3 @@ def bootstrap2():
 # start the server
 if __name__ == '__main__':
         app.run(host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)        
-        
-        
-        
-        
-        
-        
-        
-        
