@@ -50,21 +50,21 @@ def dashIndex():
     return render_template('index.html')
 
     
-@app.route('/forms.html')
+@app.route('/forms')
 def forms():
     print 'in forms'
     
     return render_template('forms.html')
     
     
-@app.route('/charts.html')
+@app.route('/charts')
 def charts():
     print 'in charts'
     
     return render_template('charts.html')
     
     
-@app.route('/tables.html')
+@app.route('/tables')
 def tables():
     print 'in tables'
     
@@ -72,13 +72,13 @@ def tables():
     
     
 #probably remove these later, but added them just to see what things could look like
-@app.route('/bootstrap-elements.html')
+@app.route('/bootstrap-elements')
 def bootstrap():
     print 'in tables'
     
     return render_template('bootstrap-elements.html')
     
-@app.route('/bootstrap-grid.html')
+@app.route('/bootstrap-grid')
 def bootstrap2():
     print 'in tables'
     
