@@ -28,7 +28,17 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <style>
+        #rcorners2 {
+            border-radius: 25px;
+            border: 4px solid white;
+            width: 100px;
+            height: 100px;
+        }
+        
+    
+       
+    </style>
 </head>
 
 <body>
@@ -49,6 +59,9 @@
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
+                <li>
+                        <a href="/login.html"><i class="fa fa-fw fa-sign-in"></i> Login</a>
+                </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
                     <ul class="dropdown-menu message-dropdown">
@@ -149,49 +162,39 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                            <a href="#"><i class="fa fa-fw fa-sign-out"></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
+
             </ul>
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="/index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="/index.html"><i class="fa fa-fw fa-home"></i> Home</a>
                     </li>
                     <li>
-                        <a href="/charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                        <a href="/register.html"><i class="fa fa-fw fa-pencil-square-o"></i> Register</a>
                     </li>
                     <li>
-                        <a href="/tables.html"><i class="fa fa-fw fa-table"></i> Tables</a>
+                        <a href="/forms.html"><i class="fa fa-fw fa-send-o"></i> Suggest Historical Event/Individual</a>
                     </li>
                     <li>
-                        <a href="/forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
+                        <a href="addhistoricalinfo.html"><i class="fa fa-fw fa-file"></i> Add Historical Event/Individual</a>
                     </li>
                     <li>
-                        <a href="/bootstrap-elements.html"><i class="fa fa-fw fa-desktop"></i> Login</a>
+                        <a href="/timeline.html"><i class="fa fa-fw fa-wrench"></i> Timeline</a>
                     </li>
-                    <li>
-                        <a href="/bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Timeline</a>
+                    <li class="search">
+                       <form action = "http:https://ratemyhistory-gmay.c9users.io/search.html">
+                        <div style="width:215px;height:40px;padding:5px;border:2px solid white;">
+                        <input type="text" value="" name="searchengine", placeholder="Search"/>
+                        <input type="image" src="http://findicons.com/files/icons/2260/iphone_toolbar/26/magnifyingglass.png" width="15" alt="Search">
+                        </div>
+                        </form>
                     </li>
-                    <li>
-                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Dropdown <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo" class="collapse">
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                            <li>
-                                <a href="#">Dropdown Item</a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Popular Events</a>
-                    </li>
-                    <!--<li>-->
-                    <!--    <a href="index-rtl.html"><i class="fa fa-fw fa-dashboard"></i> RTL Dashboard</a>-->
-                    <!--</li>-->
+                
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
