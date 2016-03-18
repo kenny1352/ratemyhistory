@@ -50,7 +50,7 @@ def dashIndex():
     return render_template('index.html')
 
     
-@app.route('/forms')
+@app.route('/forms.html')
 def forms():
     print 'in forms'
     
@@ -70,6 +70,18 @@ def tables():
     
     return render_template('tables.html')
     
+    
+@app.route('/register.html')
+def register():
+    print 'in register'
+    
+    return render_template('register.html')
+    
+@app.route('/AddEvent.html')
+def addEvent():
+    print 'in event addition'
+    
+    return render_template('AddEvent.html')
     
 #probably remove these later, but added them just to see what things could look like
 @app.route('/bootstrap-elements')
