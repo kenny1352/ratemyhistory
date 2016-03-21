@@ -13,7 +13,7 @@
                         </h1>
                         <ol class="breadcrumb">
                             <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Home</a>
+                                <i class="fa fa-history"></i>  <a href="index.html">Home</a>
                             </li>
                             <li class="active">
                                 <i class="fa fa-fw fa-sign-in"></i> Login
@@ -30,13 +30,13 @@
                             <input type="text" value="" name="username"></br>
                             Password: <br>
                             <input type="text" value="" name="password"/></br>
-                            <br><input type="submit" onclick="check(thisform)" value="Log In">
+                            <br><input type="submit" onclick="check(this.form)" value="Log In">
                         </fieldset>
                     </form>
                     <script language="javascript">
                         function check(form){
                             if(form.username.value == "ausername" && form.password.value =="apassword"){
-                                window.open('/index.html')
+                                window.location = window.location.host
                             }
                             else{
                                 alert("Error! Please enter the correct Username or password!")
