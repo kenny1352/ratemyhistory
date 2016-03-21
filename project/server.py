@@ -83,6 +83,12 @@ def addEvent():
     
     return render_template('AddEvent.html')
     
+@app.route('/login.html', methods=['GET','POST'])
+def login():
+    print 'in login'
+    
+    return render_template('login.html')
+    
 #probably remove these later, but added them just to see what things could look like
 @app.route('/bootstrap-elements')
 def bootstrap():
