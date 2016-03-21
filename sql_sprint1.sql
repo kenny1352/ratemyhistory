@@ -88,17 +88,12 @@ INSERT INTO users (Username, Email, Password) VALUES
 -- Table structure for table relations
 --
 
-DROP TABLE IF EXISTS relations
-CREATE TABLE relations (
-EventID integer NOT NULL,
-PersonID integer NOT NULL
-);
+
 
 GRANT INSERT, UPDATE, SELECT ON ALL TABLES IN SCHEMA public To assist;
 GRANT USAGE ON users_id_seq to assist;
 GRANT USAGE ON events_id_seq to assist;
 GRANT USAGE ON people_id_seq to assist;
-<<<<<<< HEAD
-=======
-GRANT USAGE ON relations_id_seq to assist;
->>>>>>> d62fe38cc056297661647fda8c2b38d914a02fe0
+
+---GRANT USAGE ON relations_id_seq to assist;
+
