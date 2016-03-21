@@ -50,11 +50,11 @@ def dashIndex():
     return render_template('index.html')
 
     
-@app.route('/forms.html')
+@app.route('/SuggestEvent.html')
 def forms():
     print 'in forms'
     
-    return render_template('forms.html')
+    return render_template('SuggestEvent.html')
     
     
 @app.route('/charts')
