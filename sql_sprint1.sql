@@ -72,7 +72,18 @@ INSERT INTO users (Username, Email, Password) VALUES
 ('admin', 'admin@admin.com', crypt('admin', gen_salt('bf')))
 );
 
+--
+-- Table structure for table relations
+--
+
+DROP TABLE IF EXISTS relations
+CREATE TABLE relations (
+EventID integer NOT NULL,
+PersonID integer NOT NULL
+);
+
 GRANT INSERT, UPDATE, SELECT ON ALL TABLES IN SCHEMA public To assist;
 GRANT USAGE ON users_id_seq to assist;
 GRANT USAGE ON events_id_seq to assist;
 GRANT USAGE ON people_id_seq to assist;
+GRANT USAGE ON relations_id_seq to assist;
