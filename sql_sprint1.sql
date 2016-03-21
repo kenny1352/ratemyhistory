@@ -24,7 +24,11 @@ CREATE TABLE events (
 
 INSERT INTO events (Name, Location, Description, Year) Values 
 ('Something', 'University of Mary Washington', 'stuff stuff and more stuff', '2016-3-12'),
-('Something Else', 'University of Mary Washington again', 'stuff stuff and more stuff', '2016-3-12');
+('Something Else', 'University of Mary Washington again', 'stuff stuff and more stuff', '2016-3-12'),
+('Watergate Break-in', 'Watergate Hotel. Washington, D.C.','Five men connected to Nixon''s reelection campaign broke into the Democratic National Committee Headquarters and were caught by a security guard.', ' 1972-6-17'),
+('Ford pardons Nixon', 'White House, Washington D.C.', 'President Gerald Ford pardons Nixon after Nixon resigns from office and Ford takes the presidency. Ford pardons Nixon ''for all crimes he ''committed or may have committed'' while in office''. ', '1974-9-8');
+
+
 
 --
 -- Table structure for table people
@@ -42,8 +46,8 @@ CREATE TABLE people (
 
 INSERT INTO people (Name, Birth, Death, Description) Values
 ('George Washington','1732-2-22','1799-12-14','stuff stuff and more stuff'),
-('Robin Williams','1951-7-21','2014-8-11','stuff stuff and more stuff');
-
+('Robin Williams','1951-7-21','2014-8-11','stuff stuff and more stuff'),
+('Upton Sinclair', '1878-9-20', '1968-11-25', 'Author of The Jungle');
 --
 -- Table structure for table users
 --
@@ -69,8 +73,16 @@ CREATE TABLE users (
 
 INSERT INTO users (Username, Email, Password) VALUES
 ('test','test@test.com', crypt('test', gen_salt('bf'))),
-('admin', 'admin@admin.com', crypt('admin', gen_salt('bf')))
-);
+('admin', 'admin@admin.com', crypt('admin', gen_salt('bf')));
+
+
+-- DROP TABLE IF EXISTS relations
+-- CREATE TABLE relations (
+    
+--     EventID integer NOT NULL,
+--     PersonID integer NOT NULL,
+--     FOREIGN KEY 
+-- );
 
 GRANT INSERT, UPDATE, SELECT ON ALL TABLES IN SCHEMA public To assist;
 GRANT USAGE ON users_id_seq to assist;
