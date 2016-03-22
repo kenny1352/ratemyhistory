@@ -65,7 +65,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/index.html">Rate My History</a>
+                <a class="navbar-brand" href="/index.html">Rate My History></a>
             </div>
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
@@ -181,19 +181,19 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li {% if SelectedMenu == 'Index' %} class="active" {% endif %}>
                         <a href="/index.html"><i class="fa fa-fw fa-home"></i> Home</a>
                     </li>
-                    <li>
+                    <li {% if SelectedMenu == 'Register' %} class="active" {% endif %}>
                         <a href="/register.html"><i class="fa fa-fw fa-pencil-square-o"></i>Register</a>
                     </li>
-                    <li>
+                    <li {% if SelectedMenu == 'SuggestEvent' %} class="active" {% endif %}>
                         <a href="/SuggestEvent.html"><i class="fa fa-fw fa-send-o"></i> Suggest Historical Event/Individual</a>
                     </li>
-                    <li>
+                    <li {% if SelectedMenu == 'AddEvent' %} class="active" {% endif %}>
                         <a href="/AddEvent.html"><i class="fa fa-fw fa-file"></i> Add Historical Event/Individual</a>
                     </li>
-                    <li>
+                    <li {% if SelectedMenu == 'Timeline' %} class="active" {% endif %}>
                         <a href="/timeline.html"><i class="fa fa-fw fa-wrench"></i> Timeline</a>
                     </li>
                     <li class="search">

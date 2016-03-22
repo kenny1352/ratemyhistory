@@ -40,67 +40,67 @@ print ("before app route")
 def mainIndex():
     print 'in hello world'
     
-    return render_template('index.html')
+    return render_template('index.html', SelectedMenu = 'Index')
     
     
 @app.route('/index.html')
 def dashIndex():
     print 'in hello world'
     
-    return render_template('index.html')
+    return render_template('index.html', SelectedMenu = 'Index')
 
     
 @app.route('/SuggestEvent.html')
 def forms():
     print 'in forms'
     
-    return render_template('SuggestEvent.html')
+    return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
     
     
 @app.route('/charts')
 def charts():
     print 'in charts'
     
-    return render_template('charts.html')
+    return render_template('charts.html', SelectedMenu = 'Charts')
     
     
 @app.route('/tables')
 def tables():
     print 'in tables'
     
-    return render_template('tables.html')
+    return render_template('tables.html', SelectedMenu = 'Tables')
     
     
 @app.route('/register.html')
 def register():
     print 'in register'
     
-    return render_template('register.html')
+    return render_template('register.html', SelectedMenu = 'Register')
     
 @app.route('/AddEvent.html')
 def addEvent():
     print 'in event addition'
     
-    return render_template('AddEvent.html')
+    return render_template('AddEvent.html', SelectedMenu = 'AddEvent')
     
 @app.route('/login.html', methods=['GET','POST'])
 def login():
     print 'in login'
     
-    return render_template('login.html')
+    return render_template('login.html', SelectedMenu = 'Login')
     
 #probably remove these later, but added them just to see what things could look like
 @app.route('/bootstrap-elements')
 def bootstrap():
     print 'in tables'
     
-    return render_template('bootstrap-elements.html')
+    return render_template('bootstrap-elements.html', SelectedMenu = 'Bootstrap-elements')
     
 @app.route('/bootstrap-grid')
 def bootstrap2():
     print 'in tables'
     
-    return render_template('bootstrap-grid.html')
+    return render_template('bootstrap-grid.html', SelectedMenu = 'Bootstrap-grid')
 
 # start the server
 if __name__ == '__main__':
