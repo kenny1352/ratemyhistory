@@ -63,14 +63,14 @@ def forms():
     return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
     
     
-@app.route('/charts')
+@app.route('/charts.html')
 def charts():
     print 'in charts'
     
     return render_template('charts.html', SelectedMenu = 'Charts')
     
     
-@app.route('/tables')
+@app.route('/tables.html')
 def tables():
     print 'in tables'
     
@@ -88,6 +88,15 @@ def addEvent():
     print 'in event addition'
     
     return render_template('AddEvent.html', SelectedMenu = 'AddEvent')
+    
+    
+@app.route('/timeline.html')
+def timeline():
+    print 'in timeline'
+    
+    return render_template('timeline.html', SelectedMenu = 'Timeline')
+    
+    
     
 @app.route('/login.html', methods=['GET','POST'])
 def login():
@@ -118,6 +127,16 @@ def login():
         
     return render_template('login.html', SelectedMenu = 'Login')
     
+    
+@app.route('/logout')
+def logout():
+    print('removing session variables')
+    #session.close()
+    print session['userName']
+    #session['userName'].close()
+    
+    return redirect(url_for('mainIndex'))
+
 #probably remove these later, but added them just to see what things could look like
 @app.route('/bootstrap-elements')
 def bootstrap():
