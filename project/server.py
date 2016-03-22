@@ -39,6 +39,12 @@ print ("before app route")
 @app.route('/')
 def mainIndex():
     print 'in hello world'
+    # not sure we need this, but might be helpful later on
+    logged = 0
+    if 'Username' in session:
+        logged = 1
+    
+        
     
     return render_template('index.html', SelectedMenu = 'Index')
     
@@ -86,7 +92,30 @@ def addEvent():
 @app.route('/login.html', methods=['GET','POST'])
 def login():
     print 'in login'
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     
+    if request.method == 'POST':
+        print "HI"
+        email = request.form['email']
+        password = request.form['password']
+
+        loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password))
+        cur.execute(loginQuery)
+        print loginQuery
+        
+        result = cur.fetchone()
+        print result
+        if result:
+            print('logged in')
+            print('name = ', result[0])
+            session['userName'] = result[0]
+            print session['userName']
+            
+            return redirect(url_for('mainIndex'))
+            
+    
+        
     return render_template('login.html', SelectedMenu = 'Login')
     
 #probably remove these later, but added them just to see what things could look like

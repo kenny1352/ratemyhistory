@@ -26,22 +26,23 @@
                 <form action="/login.html" method="POST">
                         <fieldset>
                             <p>To use <i><strong>Rate My History</strong></i>, you must login to use this site. <br>Please enter your username and password to begin your journey of rating history!</p>
-                            Username: <br>
-                            <input type="text" value="" name="username"></br>
+                            Email: <br>
+                            <input type="text" value="" name="email" id="email"></br>
                             Password: <br>
-                            <input type="text" value="" name="password"/></br>
-                            <br><input type="submit" onclick="check(this.form)" value="Log In">
+                            <input type="password" value="" name="password" id="password"/></br>
+                            <br><input type="submit" onclick="check(this.form)" value="Login">
                         </fieldset>
                     </form>
                     <script language="javascript">
-                        function check(form){
-                            if(form.username.value == "ausername" && form.password.value =="apassword"){
-                                window.location = window.location.host
-                            }
-                            else{
-                                alert("Error! Please enter the correct Username or password!")
-                            }
-                        }
+                        // Doesnt do anything....
+                        // function check(form){
+                        //     if(form.username.value == "aemail" && form.password.value =="apassword"){
+                        //         window.location = window.location.host
+                        //     }
+                        //     else{
+                        //         alert("Error! Please enter the correct Username or password!")
+                        //     }
+                        // }
                     </script>
                 
         </div>
