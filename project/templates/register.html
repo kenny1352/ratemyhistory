@@ -23,16 +23,24 @@
                 <div class="row">
                     <div class="col-lg-6">
 
-                        <form role="form">
+                        <form role="form" method="POST" data-toggle="validator">
 
                             <div class="form-group">
                                 <label>First Name</label>
-                                <input class="form-control">
+                                <input type="text" class="form-control" name="firstName" id="firstName" required>
+                                <div class="help-block with-errors"></div>
                             </div>
                             
                             <div class="form-group">
                                 <label>Last Name</label>
-                                <input class="form-control">
+                                <input type="text" class="form-control" name="lastName" id="lastName" required>
+                                <div class="help-block with-errors"></div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" class="form-control" name="userName" id="userName" required>
+                                <div class="help-block with-errors"></div>
                             </div>
                             
                             <div class="form-group">
@@ -42,32 +50,33 @@
                             
                             <div class="form-group">
                                 <label>Email</label>
-                                <input class="form-control">
+                                <input type="email" class="form-control" name="email" id="email" required>
+                                <div class="help-block with-errors"></div>
                             </div>
                             
                             <div class="form-group">
                                 <label>Profession</label>
-                                <input class="form-control">
+                                <input type="text" class="form-control" name="prof" id="prof">
                             </div>
                             
                             <div class="form-group">
                                 <label>Company</label>
-                                <input class="form-control">
+                                <input type="text" class="form-control" name="comp" id="comp">
                             </div>
                             
                             <div class="form-group">
                                 <label>Address</label>
-                                <input class="form-control">
+                                <input type="text" class="form-control" name="address" id="address">
                             </div>
                             
                             <div class="form-group">
                                 <label>City</label>
-                                <input class="form-control">
+                                <input type="text" class="form-control" name="city" id="city">
                             </div>
                             
                             <div class="form-group">
                                 <label>Country</label>
-                                <select class="form-control">
+                                <select type="text" class="form-control" name="country" id="country">
                                     <option>United States</option>
                                     <option>Canada</option>
                                     <option>Mexico</option>
@@ -86,12 +95,14 @@
                             
                             <div class="form-group">
                                 <label>Password</label>
-                                <input class="form-control">
+                                <input type="password" class="form-control" name="password" id="password" required>
+                                <div class="help-block with-errors"></div>
                             </div>
                             
                             <div class="form-group">
-                                <label>Confirm Password</label>
-                                <input class="form-control">
+                                <label for="passwordConfirm">Confirm Password</label>
+                                <input type="password" class="form-control" id="passwordConfirm" data-match="#password" data-match-error="passwords do not match" required>
+                                <div class="help-block with-errors"></div>
                             </div>
 
 
