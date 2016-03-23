@@ -80,6 +80,22 @@ def tables():
 @app.route('/register.html')
 def register():
     print 'in register'
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
+    
+    
+    firstname = request.form['']
+    lastname = request.form['']
+    username = request.form['username']
+    email = request.form['email']
+    profession = request.form['']
+    company = request.form['']
+    address = request.form['']
+    city = request.form['']
+    country = request.form['']
+    password = request.form['password']
+    
+    
     
     return render_template('register.html', SelectedMenu = 'Register')
     
