@@ -77,24 +77,50 @@ def tables():
     return render_template('tables.html', SelectedMenu = 'Tables')
     
     
-@app.route('/register.html')
+@app.route('/register.html',methods=['GET','POST'])
 def register():
     print 'in register'
     conn = connectToDB()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor) 
     
-    
-    firstname = request.form['']
-    lastname = request.form['']
-    username = request.form['username']
-    email = request.form['email']
-    profession = request.form['']
-    company = request.form['']
-    address = request.form['']
-    city = request.form['']
-    country = request.form['']
-    password = request.form['password']
-    
+    rows = []
+    if request.method == 'POST':
+        #wrote these out just to see it, will not be saving this information
+        # firstname = request.form['firstName']
+        # lastname = request.form['lastName']
+        # username = request.form['userName']
+        email = request.form['email']
+        # profession = request.form['prof']
+        # company = request.form['comp']
+        # address = request.form['address']
+        # city = request.form['city']
+        # country = request.form['country']
+        # password = request.form['password']
+        
+        
+        regQuery = cur.mogrify("SELECT Email FROM users WHERE Email = %s", (email,))
+        print (regQuery)
+        cur.execute(regQuery)
+        
+        rows=cur.fetchall()
+        print ("rows")
+        
+        if (rows == []):
+        
+            #dont have all users table datatypes, but we can work on that later
+            regAddQuery = cur.mogrify("""INSERT INTO users (Username, Email, Password, Firstname, Lastname, Company, Address, City)
+                VALUES(%s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s);""", (request.form['userName'],request.form['email'],request.form['password'],
+                request.form['firstName'],request.form['lastName'],request.form['comp'],request.form['address'],request.form['city']))
+            print (regAddQuery)
+            
+            cur.execute(regAddQuery)
+            print("after add execute")
+            #commented commit until I know the query is printing right
+            conn.commit()
+            print("person registered")
+            
+        else:
+            print ("email is taken so user exists")
     
     
     return render_template('register.html', SelectedMenu = 'Register')
