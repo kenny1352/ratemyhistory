@@ -86,17 +86,10 @@ def register():
     
     rows = []
     if request.method == 'POST':
-        #wrote these out just to see it, will not be saving this information
-        # firstname = request.form['firstName']
-        # lastname = request.form['lastName']
-        # username = request.form['userName']
+        
+        #get this from form for checking if user already exists
         email = request.form['email']
-        # profession = request.form['prof']
-        # company = request.form['comp']
-        # address = request.form['address']
-        # city = request.form['city']
-        # country = request.form['country']
-        # password = request.form['password']
+
         
         
         regQuery = cur.mogrify("SELECT Email FROM users WHERE Email = %s", (email,))
@@ -106,19 +99,28 @@ def register():
         rows=cur.fetchall()
         print ("rows")
         
-        if (rows == []):
         
-            #dont have all users table datatypes, but we can work on that later
-            regAddQuery = cur.mogrify("""INSERT INTO users (Username, Email, Password, Firstname, Lastname, Company, Address, City)
-                VALUES(%s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s);""", (request.form['userName'],request.form['email'],request.form['password'],
-                request.form['firstName'],request.form['lastName'],request.form['comp'],request.form['address'],request.form['city']))
-            print (regAddQuery)
+        
+        if (rows == []):
+            check = request.form['password']
+            check2 = request.form['pwConfirm']
+            print check
+            print check2
             
-            cur.execute(regAddQuery)
-            print("after add execute")
-            #commented commit until I know the query is printing right
-            conn.commit()
-            print("person registered")
+            if (check == check2):
+                #dont have all users table datatypes, but we can work on that later
+                regAddQuery = cur.mogrify("""INSERT INTO users (Username, Email, Password, Firstname, Lastname, Company, Address, City)
+                    VALUES(%s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s);""", (request.form['userName'],request.form['email'],request.form['password'],
+                    request.form['firstName'],request.form['lastName'],request.form['comp'],request.form['address'],request.form['city']))
+                print (regAddQuery)
+                
+                cur.execute(regAddQuery)
+                print("after add execute")
+                # commit to database
+                conn.commit()
+                print("person registered")
+            else:
+                print('passwords dont match, cant register')
             
         else:
             print ("email is taken so user exists")
@@ -147,26 +149,35 @@ def login():
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     
     if request.method == 'POST':
-        print "HI"
+        print ("in if after POST")
+        
+        # get data from forms
         email = request.form['email']
         password = request.form['password']
-
+        
+        # mogrify query to prevent SQL injections
         loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password,))
+        
+        # execute query
         cur.execute(loginQuery)
         print loginQuery
         
+        # get result from query
         result = cur.fetchone()
         print result
+        
         if result:
             print('logged in')
             print('name = ', result[0])
+            
+            # sets session username to first result from query
+            # used for displaying username on webpages
             session['userName'] = result[0]
             print session['userName']
             
+            # if logged in, redirect to home page
             return redirect(url_for('mainIndex'))
             
-    
-        
     return render_template('login.html', SelectedMenu = 'Login')
     
     
