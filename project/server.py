@@ -109,7 +109,7 @@ def login():
         email = request.form['email']
         password = request.form['password']
 
-        loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password))
+        loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password,))
         cur.execute(loginQuery)
         print loginQuery
         
@@ -131,8 +131,8 @@ def login():
 @app.route('/logout')
 def logout():
     print('removing session variables')
-    #session.close()
-    print session['userName']
+    del session['userName']
+    #print session['userName']
     #session['userName'].close()
     
     return redirect(url_for('mainIndex'))
