@@ -39,68 +39,116 @@ print ("before app route")
 @app.route('/')
 def mainIndex():
     print 'in hello world'
+    # not sure we need this, but might be helpful later on
+    logged = 0
+    if 'Username' in session:
+        logged = 1
     
-    return render_template('index.html')
+        
+    
+    return render_template('index.html', SelectedMenu = 'Index')
     
     
 @app.route('/index.html')
 def dashIndex():
     print 'in hello world'
     
-    return render_template('index.html')
+    return render_template('index.html', SelectedMenu = 'Index')
 
     
 @app.route('/SuggestEvent.html')
 def forms():
     print 'in forms'
     
-    return render_template('SuggestEvent.html')
+    return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
     
     
-@app.route('/charts')
+@app.route('/charts.html')
 def charts():
     print 'in charts'
     
-    return render_template('charts.html')
+    return render_template('charts.html', SelectedMenu = 'Charts')
     
     
-@app.route('/tables')
+@app.route('/tables.html')
 def tables():
     print 'in tables'
     
-    return render_template('tables.html')
+    return render_template('tables.html', SelectedMenu = 'Tables')
     
     
 @app.route('/register.html')
 def register():
     print 'in register'
     
-    return render_template('register.html')
+    return render_template('register.html', SelectedMenu = 'Register')
     
 @app.route('/AddEvent.html')
 def addEvent():
     print 'in event addition'
     
-    return render_template('AddEvent.html')
+    return render_template('AddEvent.html', SelectedMenu = 'AddEvent')
+    
+    
+@app.route('/timeline.html')
+def timeline():
+    print 'in timeline'
+    
+    return render_template('timeline.html', SelectedMenu = 'Timeline')
+    
+    
     
 @app.route('/login.html', methods=['GET','POST'])
 def login():
     print 'in login'
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     
-    return render_template('login.html')
+    if request.method == 'POST':
+        print "HI"
+        email = request.form['email']
+        password = request.form['password']
+
+        loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password))
+        cur.execute(loginQuery)
+        print loginQuery
+        
+        result = cur.fetchone()
+        print result
+        if result:
+            print('logged in')
+            print('name = ', result[0])
+            session['userName'] = result[0]
+            print session['userName']
+            
+            return redirect(url_for('mainIndex'))
+            
     
+        
+    return render_template('login.html', SelectedMenu = 'Login')
+    
+    
+@app.route('/logout')
+def logout():
+    print('removing session variables')
+    #session.close()
+    print session['userName']
+    #session['userName'].close()
+    
+    return redirect(url_for('mainIndex'))
+
 #probably remove these later, but added them just to see what things could look like
 @app.route('/bootstrap-elements')
 def bootstrap():
     print 'in tables'
     
-    return render_template('bootstrap-elements.html')
+    return render_template('bootstrap-elements.html', SelectedMenu = 'Bootstrap-elements')
     
 @app.route('/bootstrap-grid')
 def bootstrap2():
     print 'in tables'
     
-    return render_template('bootstrap-grid.html')
+    return render_template('bootstrap-grid.html', SelectedMenu = 'Bootstrap-grid')
 
 # start the server
 if __name__ == '__main__':
