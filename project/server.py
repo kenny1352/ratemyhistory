@@ -77,7 +77,7 @@ def tables():
     return render_template('tables.html', SelectedMenu = 'Tables')
     
     
-@app.route('/register.html')
+@app.route('/register.html', methods=['GET','POST'])
 def register():
     print 'in register'
     
