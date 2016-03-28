@@ -86,18 +86,9 @@ def register():
     
     rows = []
     if request.method == 'POST':
-        #wrote these out just to see it, will not be saving this information
-        # firstname = request.form['firstName']
-        # lastname = request.form['lastName']
-        # username = request.form['userName']
-        email = request.form['email']
-        # profession = request.form['prof']
-        # company = request.form['comp']
-        # address = request.form['address']
-        # city = request.form['city']
-        # country = request.form['country']
-        # password = request.form['password']
         
+        email = request.form['email']
+       
         
         regQuery = cur.mogrify("SELECT Email FROM users WHERE Email = %s", (email,))
         print (regQuery)
@@ -107,18 +98,24 @@ def register():
         print ("rows")
         
         if (rows == []):
-        
-            #dont have all users table datatypes, but we can work on that later
-            regAddQuery = cur.mogrify("""INSERT INTO users (Username, Email, Password, Firstname, Lastname, Company, Address, City)
-                VALUES(%s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s);""", (request.form['userName'],request.form['email'],request.form['password'],
-                request.form['firstName'],request.form['lastName'],request.form['comp'],request.form['address'],request.form['city']))
-            print (regAddQuery)
+            check = request.form['password']
+            check2 = request.form['pwConfirm']
             
-            cur.execute(regAddQuery)
-            print("after add execute")
-            #commented commit until I know the query is printing right
-            conn.commit()
-            print("person registered")
+            if (check == check2):
+            
+                #dont have all users table datatypes, but we can work on that later
+                regAddQuery = cur.mogrify("""INSERT INTO users (Username, Email, Password, Firstname, Lastname, Company, Address, City)
+                    VALUES(%s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s);""", (request.form['userName'],request.form['email'],request.form['password'],
+                    request.form['firstName'],request.form['lastName'],request.form['comp'],request.form['address'],request.form['city']))
+                print (regAddQuery)
+                
+                cur.execute(regAddQuery)
+                print("after add execute")
+                #commented commit until I know the query is printing right
+                conn.commit()
+                print("person registered")
+            else:
+                print("passwords dont match, cant register")
             
         else:
             print ("email is taken so user exists")
