@@ -41,7 +41,7 @@ def mainIndex():
     print 'in hello world'
     # not sure we need this, but might be helpful later on
     logged = 0
-    if 'Username' in session:
+    if 'username' in session:
         logged = 1
     
         
