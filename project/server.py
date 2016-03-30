@@ -61,7 +61,13 @@ def forms():
     print 'in forms'
     
     return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
+
     
+@app.route('/profile.html')
+def profile():
+    print 'in profil'
+    
+    return render_template('profile.html', SelectedMenu = 'Profile')  
     
 @app.route('/charts.html')
 def charts():
