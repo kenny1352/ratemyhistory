@@ -56,16 +56,26 @@ def dashIndex():
     return render_template('index.html', SelectedMenu = 'Index')
 
     
-@app.route('/SuggestEvent.html')
-def forms():
+@app.route('/SuggestEvent.html', methods=['GET','POST'])
+def suggestEvent():
     print 'in forms'
+    
+    eventName = request['eventName']
+    eventLoc = request['eventLoc']
+    email = request['senderEmail']
+    # file upload request 
+    # 2 options requests
+    eventDesc = request['eventDesc']
+    
+    
+    
     
     return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
 
     
 @app.route('/profile.html')
 def profile():
-    print 'in profil'
+    print 'in profile'
     
     return render_template('profile.html', SelectedMenu = 'Profile')  
     
