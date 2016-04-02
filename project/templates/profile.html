@@ -1,116 +1,166 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<style type="text/css">
-#ProfilePage
-{
-    /* Move it off the top of the page, then centre it horizontally */
-    margin: 50px auto;
-    width: 635px;
-
-/* For visibility. Delete me */
-border: 1px solid red;
+<style>
+    .user-row {
+    margin-bottom: 14px;
 }
 
-#LeftCol
-{
-    /* Move it to the left */
-    float: left;
-
-    width: 200px;
-    text-align: center;
-
-    /* Move it away from the content */
-    margin-right: 20px;
-
-/* For visibility. Delete me */
-border: 1px solid brown;
+.user-row:last-child {
+    margin-bottom: 0;
 }
 
-#Photo
-{
-    /* Width and height of photo container */
-    width: 200px;
-    height: 200px;
-
-/* For visibility. Delete me */
-border: 1px solid green;
+.dropdown-user {
+    margin: 13px 0;
+    padding: 5px;
+    height: 100%;
 }
 
-#PhotoOptions
-{
-    text-align: center;
-    width: 200px;
-
-/* For visibility. Delete me */
-border: 1px solid brown;
+.dropdown-user:hover {
+    cursor: pointer;
 }
 
-#Info
-{
-    width: 400px;
-    text-align: center;
-
-    /* Move it to the right */
-    float: right;
-
-/* For visibility. Delete me */
-border: 1px solid blue;
+.table-user-information > tbody > tr {
+    border-top: 1px solid rgb(221, 221, 221);
 }
 
-#Info strong
-{
-    /* Give it a width */
-    display: inline-block;
-    width: 100px;
-
-/* For visibility. Delete me */
-border: 1px solid orange;
+.table-user-information > tbody > tr:first-child {
+    border-top: 0;
 }
 
-#Info span
-{
-    /* Give it a width */
-    display: inline-block;
-    width: 250px;
 
-/* For visibility. Delete me */
-border: 1px solid purple;
+.table-user-information > tbody > tr > td {
+    border-top: 0;
 }
+.toppad
+{margin-top:20px;
+}
+
 </style>
+<script language>
+    $(document).ready(function() {
+    var panels = $('.user-infos');
+    var panelsButton = $('.dropdown-user');
+    panels.hide();
 
-<div id="ProfilePage">
-    <div id="LeftCol">
-        <div id="Photo"></div>
-        <div id="ProfileOptions">
-        a
+    //Click dropdown
+    panelsButton.click(function() {
+        //get data-for attribute
+        var dataFor = $(this).attr('data-for');
+        var idFor = $(dataFor);
+
+        //current button
+        var currentButton = $(this);
+        idFor.slideToggle(400, function() {
+            //Completed slidetoggle
+            if(idFor.is(':visible'))
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-up text-muted"></i>');
+            }
+            else
+            {
+                currentButton.html('<i class="glyphicon glyphicon-chevron-down text-muted"></i>');
+            }
+        })
+    });
+
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('button').click(function(e) {
+        e.preventDefault();
+        alert("This is a demo.\n :-)");
+    });
+});
+</script>
+<!--<div class="container">-->
+      <div class="row">
+      <div class="col-md-5  toppad  pull-right col-md-offset-3 ">
+           <A href="login.html" >Edit Profile</A>
+
+        <A href="login.html" >Logout</A>
+       <br>
+<p class=" text-info">May 05,2014,03:00 pm </p>
+      </div>
+        <!--<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad" >-->
+   
+   
+          <div class="panel panel-info">
+            <div class="panel-heading">
+              <h3 class="panel-title">Name of User</h3> <!--will populate with logged in user -->
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-3 col-lg-3 " align="center"> <img alt="User Pic" src="http://a2.files.biography.com/image/upload/c_fill,cs_srgb,dpr_1.0,g_face,h_300,q_80,w_300/MTIwNjA4NjM0MDA1MzkwODYw.jpg" class="img-circle img-responsive"> </div>
+                
+                <!--<div class="col-xs-10 col-sm-10 hidden-md hidden-lg"> <br>
+                  <dl>
+                    <dt>DEPARTMENT:</dt>
+                    <dd>Administrator</dd>
+                    <dt>HIRE DATE</dt>
+                    <dd>11/12/2013</dd>
+                    <dt>DATE OF BIRTH</dt>
+                       <dd>11/12/2013</dd>
+                    <dt>GENDER</dt>
+                    <dd>Male</dd>
+                  </dl>
+                </div>-->
+                <!-- Will link all infor up from user in database -->
+                <!-- OR container-fluid--> 
+                <div class=" col-sm-3 col-md-6"> 
+                      <table class="table table-user-information">
+                        <tbody>
+                          <tr>
+                            <td>Company</td>
+                            <td>Company Name</td>
+                          </tr>
+                          <tr>
+                            <td>Address:</td>
+                            <td>Pull from database</td>
+    
+                          </tr>
+                          <tr>
+                            <td>Degree</td>
+                            <td>History</td>
+                          </tr>
+                       
+                             <tr>
+                          <!--       <tr>-->
+                          <!--  <td>Gender</td>-->
+                          <!--  <td>Male</td>-->
+                          <!--</tr>-->
+                            <tr>
+                            <td>Fax</td>
+                            <td>MFax number</td>
+                          </tr>
+                          <tr>
+                            <td>Email</td>
+                            <td><a href="mailto:mernesto@mail.umw.edu">mernesto@mail.umw.edu</a></td>
+                          </tr>
+                            <td>Phone Number</td>
+                            <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
+                            </td>
+                               
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+                      
+                      <a href="#" class="btn btn-primary">To link somewhere</a>
+                      <a href="#" class="btn btn-primary">Link somewhere else</a>
+                    </div>
+                  </div>
+                </div>
+                     <div class="panel-footer">
+                            <a data-original-title="Broadcast Message" data-toggle="tooltip" type="button" class="btn btn-sm btn-primary"><i class="glyphicon glyphicon-envelope"></i></a>
+                            <span class="pull-right">
+                                <a href="edit.html" data-original-title="Edit this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-warning"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a data-original-title="Remove this user" data-toggle="tooltip" type="button" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a>
+                            </span>
+                        </div>
+                
+              </div>
         </div>
-    </div>
+      <!--</div>-->
+    <!--</div>-->
 
-    <div id="Info">
-        <p>
-            <strong>Name:</strong>
-            <span>Sirjon</span>
-        </p>
-        <p>
-            <strong>Name:</strong>
-            <span>Sirjon</span>
-        </p>
-        <p>
-            <strong>Name:</strong>
-            <span>Sirjon</span>
-        </p>
-        <p>
-            <strong>Name:</strong>
-            <span>Sirjon</span>
-        </p>
-        <p>
-            <strong>Name:</strong>
-            <span>Sirjon</span>
-        </p>
-    </div>
-
-    <!-- Needed because other elements inside ProfilePage have floats -->
-    <div style="clear:both"></div>
-</div>
 {% endblock %}
