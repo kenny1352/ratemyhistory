@@ -1,1 +1,91 @@
-<!-- Search.html -->
+{% extends "layout.html" %}
+{% block content %}
+
+    <div id="page-wrapper">
+        <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Login
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-search"></i>  <a href="/search.html">Search Results</a>
+                            </li>
+                        <!--    <li class="active">
+                                <i class="fa fa-fw fa-sign-in"></i> Search Results
+                            </li> -->
+                        </ol>
+                    </div>
+                </div>
+
+<style>
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 10px;
+}
+
+ul.pagination li {display: inline;}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+ul.pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+ul.pagination li 
+a:hover:not(.active) 
+{background-color: #ddd;}
+</style>
+
+<div>
+<body>
+<table style="90%">
+  <tr>
+    <th>Month</th>
+    <th>Savings</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+  </tr>
+  <tr>
+    <td>February</td>
+    <td>$50</td>
+  </tr>
+</table>
+<br>
+<br>
+
+  <ul class="pagination">
+    <li><a href="/search.html">Prev</a></li>
+    <li><a href="/search.html">1</a></li>
+    <li><a href="/search.html">2</a></li>
+    <li><a href="/search.html">3</a></li>
+    <li><a href="/search.html">4</a></li>
+    <li><a href="/search.html">Next</a></li>
+  </ul>
+
+</body>
+</div>
+
+{% endblock %}

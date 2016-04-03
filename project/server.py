@@ -152,6 +152,12 @@ def timeline():
     return render_template('timeline.html', SelectedMenu = 'Timeline')
     
     
+@app.route('/search.html')
+def search():
+    print 'in search'
+    
+    return render_template('search.html', SelectedMenu = 'searchengine')
+    
     
 @app.route('/login.html', methods=['GET','POST'])
 def login():
