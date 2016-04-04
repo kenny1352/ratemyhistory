@@ -26,34 +26,34 @@
                 <div class="row">
                     <div class="col-lg-6">
 
-                        <form role="form" methods="POST">
+                        <form role="form" method="POST">
 
                             <div class="form-group">
                                 <label>Historical Event Name</label>
-                                <input class="form-control" type="text" name="addEventName" id="addEventName">
-                                <p class="help-block">Add in the name of the historical event.</p>
+                                <input type="text" class="form-control"  name="addEventName" id="addEventName">
+                                <!--<p class="help-block">Add in the name of the historical event.</p>-->
                             </div>
 
                             <div class="form-group">
                                 <label>Historical Event Location</label>
-                                <input class="form-control" type="text" name="addEventLoc" id="addEventLocation" placeholder="Enter text">
+                                <input type="text" class="form-control" name="addEventLoc" id="addEventLocation" placeholder="Enter text">
                             </div>
 
                             <div class="form-group">
                                 <label>Submitted By:</label>
-                                <input class="form-control"  type="text" name="addSenderEmail" id="addSenderEmail" placeholder="email@example.com">
+                                <input type="text" class="form-control"  name="addSenderEmail" id="addSenderEmail" placeholder="email@example.com">
                             </div>
 
-                            <div class="form-group">
-                                <label>File input</label>
+                            <!--<div class="form-group">-->
+                            <!--    <label>File input</label>-->
                                 <!--Need more info here, and how to pass html to python-->
-                                <p class="help-block">Input a file describing the event.</p>
-                                <input type="file">
-                            </div>
+                            <!--    <p class="help-block">Input a file describing the event.</p>-->
+                            <!--    <input type="file">-->
+                            <!--</div>-->
 
                             <div class="form-group">
                                 <label>Describe Event</label>
-                                <textarea class="form-control" type="text" name="addEventDesc" id="addEventDesc" rows="3"></textarea>
+                                <textarea type="text" class="form-control" name="addEventDesc" id="addEventDesc" rows="3"></textarea>
                             </div>
 
                             <!--<div class="form-group">-->
@@ -120,49 +120,60 @@
                             <!--    </label>-->
                             <!--</div>-->
 
-                            <div class="form-group">
-                                <label>Level of Importance</label>
+
+
+
+
+
+                            <!--<div class="form-group">-->
+                            <!--    <label>Level of Importance</label>-->
                                 <!--figure out how to pass option class to python-->
-                                <select class="form-control">
-                                    <option>Minimal Effect</option>
-                                    <option>Minor Effect</option>
-                                    <option>Moderate Effect</option>
-                                    <option>Major Effect</option>
-                                    <option>Earth Shattering</option>
-                                </select>
-                            </div>
+                            <!--    <select class="form-control" name="addImportance">-->
+                            <!--        <option>Minimal Effect</option>-->
+                            <!--        <option>Minor Effect</option>-->
+                            <!--        <option>Moderate Effect</option>-->
+                            <!--        <option>Major Effect</option>-->
+                            <!--        <option>Earth Shattering</option>-->
+                            <!--    </select>-->
+                            <!--</div>-->
+
+
 
                             <div class="form-group">
-                                <label>Time Period</label>
-                                <!--figure out how to pass option class to python-->
-                                <select multiple class="form-control">
-                                    <option>Pre-Historic</option>
-                                    <option>Ancient History</option>
-                                    <option>Post-Classical History</option>
-                                    <option>Middle Ages</option>
-                                    <option>Early Modern Period</option>
-                                    <option>Late Modern Period</option>
-                                    <option>Machine Age(1880-1945)</option>
-                                    <option>Age of Oil (after 1901)</option>
-                                    <option>World World 1 (1914-1918)</option>
-                                    <option>Roaring Twenties (1918-1929</option>
-                                    <option>Great Depression (1929-1939)</option>
-                                    <option>World War II (1939-1945)</option>
-                                    <option>Post-War Era (1945-1962)</option>
-                                    <option>The Fifties (1950-1959)</option>
-                                    <option>The Sixties (1960-1969)</option>
-                                    <option>The Seventies (1970-1979)</option>
-                                    <option>The Eighties (1980-1989)</option>
-                                    <option>The Nineties (1990-1999)</option>
-                                    <option>The 2000s (2000-present)</option>
-                                    <option>The Social Age (2004-present)</option>
-                                    <option>The Tens (2010-present)</option>
-                                    
-                                </select>
+                                <label>Year</label>
+                                <input type="text" class="form-control"   name="year" id="year" placeholder="YYYY-MM-DD" >
                             </div>
+                            <!--<div class="form-group">-->
+                            <!--    <label>Time Period</label>-->
+                                <!--figure out how to pass option class to python-->
+                            <!--    <select multiple class="form-control" name="addTimePeriod">-->
+                            <!--        <option>Pre-Historic</option>-->
+                            <!--        <option>Ancient History</option>-->
+                            <!--        <option>Post-Classical History</option>-->
+                            <!--        <option>Middle Ages</option>-->
+                            <!--        <option>Early Modern Period</option>-->
+                            <!--        <option>Late Modern Period</option>-->
+                            <!--        <option>Machine Age(1880-1945)</option>-->
+                            <!--        <option>Age of Oil (after 1901)</option>-->
+                            <!--        <option>World World 1 (1914-1918)</option>-->
+                            <!--        <option>Roaring Twenties (1918-1929</option>-->
+                            <!--        <option>Great Depression (1929-1939)</option>-->
+                            <!--        <option>World War II (1939-1945)</option>-->
+                            <!--        <option>Post-War Era (1945-1962)</option>-->
+                            <!--        <option>The Fifties (1950-1959)</option>-->
+                            <!--        <option>The Sixties (1960-1969)</option>-->
+                            <!--        <option>The Seventies (1970-1979)</option>-->
+                            <!--        <option>The Eighties (1980-1989)</option>-->
+                            <!--        <option>The Nineties (1990-1999)</option>-->
+                            <!--        <option>The 2000s (2000-present)</option>-->
+                            <!--        <option>The Social Age (2004-present)</option>-->
+                            <!--        <option>The Tens (2010-present)</option>-->
+                                    
+                            <!--    </select>-->
+                            <!--</div>-->
                             <div class="form-group">
                                 <button type="submit" class="btn btn-default">Submit</button>
-                                <button type="reset" class="btn btn-default">Clear</button>
+                                <!--<button type="reset" class="btn btn-default">Clear</button>-->
                             </div>
                         </form>
 
@@ -259,10 +270,10 @@
             </div>
             <!-- /.container-fluid -->
 
-        </div>
+        <!--</div>-->
         <!-- /#page-wrapper -->
-
-    </div>
+<script src="{{ url_for('static', filename='js/plugins/morris/morris.min.js') }}"></script>
+    <!--</div>-->
     <!-- /#wrapper -->
 {% endblock %}
 

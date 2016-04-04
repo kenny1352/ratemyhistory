@@ -60,12 +60,14 @@ def dashIndex():
 def suggestEvent():
     print 'in forms'
     
-    eventName = request['eventName']
-    eventLoc = request['eventLoc']
-    email = request['senderEmail']
+    eventName = request.form['eventName']
+    eventLoc = request.form['eventLoc']
+    email = request.form['senderEmail']
     # file upload request 
     # 2 options requests
-    eventDesc = request['eventDesc']
+    importance = request.form['importance']
+    time = request.form['timePeriod']         
+    eventDesc = request.form['eventDesc']
     
     
     
@@ -138,9 +140,36 @@ def register():
             
     return render_template('register.html', SelectedMenu = 'Register')
     
-@app.route('/AddEvent.html')
+@app.route('/AddEvent.html', methods=['GET','POST'])
 def addEvent():
     print 'in event addition'
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    
+    
+    
+    
+    
+    if request.method == 'POST':
+        print ("in requests")       
+        # eventName = request.form['addEventName']
+        # eventLoc = request.form['addEventLoc']
+        # email = request.form['addSenderEmail']
+        # # file upload request 
+        # eventDesc = request.form['addEventDesc']
+        # # 2 options requests
+        # importance = request.form['addImportance']
+        # date = request.form['year']
+        print (request.form["addEventName"])
+        print (request.form["addEventLoc"])
+        print (request.form["addEventDesc"])
+        print (request.form["year"])
+        addEventQuery=cur.mogrify("""INSERT INTO events (Name, Location, Description, Year) Values(%s, %s, %s, %s);""", (request.form['addEventName'],request.form['addEventLoc'],request.form['addEventDesc'], request.form['year'],))
+        print addEventQuery
+        cur.execute(addEventQuery)
+        conn.commit()
+    
+    
     
     return render_template('AddEvent.html', SelectedMenu = 'AddEvent')
     

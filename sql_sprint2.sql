@@ -1,3 +1,4 @@
+\c postgres;
 DROP DATABASE IF EXISTS ratemyhistory;
 CREATE DATABASE  ratemyhistory;
 DROP USER IF EXISTS assist;
@@ -14,14 +15,14 @@ CREATE EXTENSION pgcrypto;
 
 DROP TABLE IF EXISTS events;
 CREATE TABLE events (
-    ID serial NOT NULL,
+    EventID serial NOT NULL,
     Name varchar(50)  NOT NULL default '',
     Location varchar(35) NOT NULL default '',
     Description varchar(400) NOT NULL default '',
     Year date,
     Rating integer,
     Views integer,
-    PRIMARY KEY  (ID)
+    PRIMARY KEY  (EventID)
 ) ;
 
 INSERT INTO events (Name, Location, Description, Year) Values 
@@ -86,9 +87,9 @@ DROP TABLE IF EXISTS eventtoperson;
 CREATE TABLE eventtoperson (
     EventID integer NOT NULL,
     PersonID integer NOT NULL,
-    PRIMARY KEY (EventID, PersonID),
-    FOREIGN KEY (EventID) REFERENCES events(ID),
-    FOREIGN KEY (PersonID) REFERENCES people(ID)
+    PRIMARY KEY (EventID, PersonID)
+    --FOREIGN KEY (EventID) REFERENCES events(ID),
+    --FOREIGN KEY (PersonID) REFERENCES people(ID)
 );
 
 INSERT INTO eventtoperson (EventID, PersonID) VALUES
@@ -99,7 +100,7 @@ INSERT INTO eventtoperson (EventID, PersonID) VALUES
 
 GRANT INSERT, UPDATE, SELECT ON ALL TABLES IN SCHEMA public To assist;
 GRANT USAGE ON users_id_seq to assist;
-GRANT USAGE ON events_id_seq to assist;
+GRANT USAGE ON events_eventid_seq to assist;
 GRANT USAGE ON people_id_seq to assist;
 
 ---GRANT USAGE ON relations_id_seq to assist;
