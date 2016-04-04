@@ -60,14 +60,17 @@ def dashIndex():
 def suggestEvent():
     print 'in forms'
     
-    eventName = request.form['eventName']
-    eventLoc = request.form['eventLoc']
-    email = request.form['senderEmail']
-    # file upload request 
-    # 2 options requests
-    importance = request.form['importance']
-    time = request.form['timePeriod']         
-    eventDesc = request.form['eventDesc']
+    
+    
+    if request.method == 'POST':
+        eventName = request.form['eventName']
+        eventLoc = request.form['eventLoc']
+        email = request.form['senderEmail']
+        # file upload request 
+        # 2 options requests
+        importance = request.form['importance']
+        time = request.form['timePeriod']         
+        eventDesc = request.form['eventDesc']
     
     
     
