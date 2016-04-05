@@ -81,6 +81,20 @@ def suggestEvent():
 @app.route('/profile.html')
 def profile():
     print 'in profile'
+    uName = session['userName']
+    print uName
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    try:
+        profQuery = cur.mogrify("SELECT Firstname, Lastname, Address, Company FROM users WHERE Username = %s LIMIT 1;", (uName,))
+        cur.execute(profQuery)
+        print profQuery
+    except:
+	    print("Error executing SELECT statement")
+    pageStuff = cur.fetchall()
+    entry = cur.fetchone()
+    print pageStuff
+    print entry
     
     return render_template('profile.html', SelectedMenu = 'Profile')  
     
@@ -212,6 +226,7 @@ def login():
             print('logged in')
             print('name = ', result[0])
             session['userName'] = result[0]
+            session['loggedIn'] = 1
             print session['userName']
             
             return redirect(url_for('mainIndex'))

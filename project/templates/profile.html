@@ -86,7 +86,7 @@
    
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title">Name of User</h3> <!--will populate with logged in user -->
+              <h3 class="panel-title">{{session['firstName']}} {{session['lastName']}}</h3> <!--will populate with logged in user -->
             </div>
             <div class="panel-body">
               <div class="row">
@@ -111,11 +111,11 @@
                         <tbody>
                           <tr>
                             <td>Company</td>
-                            <td>Company Name</td>
+                            <td>{{session['company']}}</td>
                           </tr>
                           <tr>
                             <td>Address:</td>
-                            <td>Pull from database</td>
+                            <td>{{session['address']}}</td>
     
                           </tr>
                           <tr>
