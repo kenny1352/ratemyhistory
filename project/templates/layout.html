@@ -72,7 +72,7 @@
             <ul class="nav navbar-right top-nav">
                 <li>
                     {% if session[loggedIn] %}
-
+                        
                     {% else %}
                         <a href="/login.html"><i class="fa fa-fw fa-sign-in"></i> Login</a>
                     {% endif %}
@@ -213,12 +213,46 @@
                         </div>
                         </form>
                     </li>
-                
+                <li class="container" ng-controller="ChatController">
+                <div class="row">
+                <div style type="width:215px;height:100;padding:5px;border:2px solid white;">
+                    
+
+                     Blog Entries Column 
+                    <div class="col-md-8">
+        
+                        <h1 class="page-header">
+                            Live Chat
+                            
+                        </h1>
+                        <div class="scroll" id="msgpane">
+                                 <p ng-repeat="msg in messages">
+                                   <b ng-bind="msg.name"></b>:&nbsp;
+                                   <span ng-bind="msg.text"></span>
+                                        
+                                 </p>
+                     
+                     
+                        </div>
+         
+                         <form ng-submit="send()">
+                              
+                                <input type="text"  ng-model="text" size="30"  placeholder="..">
+                                <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!loggedIn" id="send_button">
+                             
+                         </form>
+                         </div>
+                    </div>
+                </div>
+            <!--</div>-->
+            
+            </li>
                 </ul>
-            </div>
+            </div>    
             <!-- /.navbar-collapse -->
         </nav>
-    
+    <!--GOING TO MOVE TO ANOTHER PAGE-->
+            
 {% block content %} {% endblock %}
 
 
