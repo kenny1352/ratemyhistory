@@ -71,7 +71,7 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li>
-                    {% if session[loggedIn] %}
+                    {% if session['loggedIn'] == Yes %}
 
                     {% else %}
                         <a href="/login.html"><i class="fa fa-fw fa-sign-in"></i> Login</a>

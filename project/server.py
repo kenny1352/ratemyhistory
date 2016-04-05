@@ -24,7 +24,6 @@ def connectToDB():
     except:
         print("Can't connect to database")
 
-
 #CHANGE NAMESPACE TO WHAT WE DECIDE
 # @socketio.on('connect', namespace='/')
 # def makeConnection():
@@ -81,20 +80,29 @@ def suggestEvent():
 @app.route('/profile.html')
 def profile():
     print 'in profile'
-    uName = session['userName']
-    print uName
-    conn = connectToDB()
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    try:
-        profQuery = cur.mogrify("SELECT Firstname, Lastname, Address, Company FROM users WHERE Username = %s LIMIT 1;", (uName,))
-        cur.execute(profQuery)
-        print profQuery
-    except:
-	    print("Error executing SELECT statement")
-    pageStuff = cur.fetchall()
-    entry = cur.fetchone()
-    print pageStuff
-    print entry
+    if session['loggedIn'] == 'Yes':
+        uName = session['userName']
+        print uName
+        conn = connectToDB()
+        cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        try:
+            profQuery = cur.mogrify("SELECT Firstname, Lastname, Address, Company FROM users WHERE Username = %s LIMIT 1;", (uName,))
+            cur.execute(profQuery)
+            print profQuery
+        except:
+	        print("Error executing SELECT statement")
+        pageStuff = cur.fetchall()
+        entry = pageStuff[0]
+        print entry[1]
+        session['firstName'] = entry['firstname']
+        session['lastName'] = entry['lastname']
+        session['address'] = entry['address']
+        session['company'] = entry['company']
+        
+    
+    else:
+        print "Error: Not logged in"
+        return render_template('index.html', SelectedMenu = 'Index')
     
     return render_template('profile.html', SelectedMenu = 'Profile')  
     
@@ -226,7 +234,7 @@ def login():
             print('logged in')
             print('name = ', result[0])
             session['userName'] = result[0]
-            session['loggedIn'] = 1
+            session['loggedIn'] = 'Yes'
             print session['userName']
             
             return redirect(url_for('mainIndex'))
@@ -240,6 +248,7 @@ def login():
 def logout():
     print('removing session variables')
     del session['userName']
+    session['loggedIn'] = 'No'
     #print session['userName']
     #session['userName'].close()
     
