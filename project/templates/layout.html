@@ -71,7 +71,12 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li>
+<<<<<<< HEAD
                         <a href="/login.html"><i class="fa fa-fw fa-sign-in"></i> Login</a>
+=======
+
+                        <a href="/login.html"><i class="fa fa-fw fa-sign-in" id="loginbutton"></i> Login</a>
+>>>>>>> 56cbfd6c4f6b068f67341688efa4e5cc808689a0
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> <b class="caret"></b></a>
@@ -161,9 +166,7 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 
-                        {% if 'userName' in session %}
-                          {{session['userName']}}
-                        {% endif %} 
+                        
                         <b class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li>
@@ -211,16 +214,16 @@
                     </li>
                 <li class="container" ng-controller="ChatController">
                 <div class="row">
-                <div style type="width:215px;height:100;padding:5px;border:2px solid white;">
+                <!--<div style type="width:215px;height:100;padding:5px;border:2px solid white;">-->
                     
 
-                     Blog Entries Column 
-                    <div class="col-md-8">
-        
-                        <h1 class="page-header">
-                            Live Chat
-                            
-                        </h1>
+                      
+                    <!--<div class="col-md-8">-->
+                    <li {% if SelectedMenu == 'Live Chat' %} class="active" {% endif %}>
+                        <i class="fa fa-fw fa-pencil-square-o"></i>
+                           <a href="#"> Live Chat</a>
+                         </li>  
+                        
                         <div class="scroll" id="msgpane">
                                  <p ng-repeat="msg in messages">
                                    <b ng-bind="msg.name"></b>:&nbsp;
@@ -233,13 +236,14 @@
          
                          <form ng-submit="send()">
                               
-                                <input type="text"  ng-model="text" size="30"  placeholder="..">
+                                <input type="text"  ng-model="text" size="25"  placeholder="..">
+                                <br><br>
                                 <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!loggedIn" id="send_button">
                              
                          </form>
                          </div>
-                    </div>
-                </div>
+                    <!--</div>-->
+                <!--</div>-->
             <!--</div>-->
             
             </li>
