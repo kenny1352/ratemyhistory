@@ -89,7 +89,7 @@
    
           <div class="panel panel-info">
             <div class="panel-heading">
-              <h3 class="panel-title">{{session['firstName']}} {{session['lastName']}}</h3> <!--will populate with logged in user -->
+              <h3 class="panel-title">{{pageInfo['firstname']}} {{pageInfo['lastname']}}</h3> <!--will populate with logged in user -->
             </div>
             <div class="panel-body">
               <div class="row">
@@ -114,16 +114,16 @@
                         <tbody>
                           <tr>
                             <td>Company</td>
-                            <td>{{session['company']}}</td>
+                            <td>{{pageInfo['company']}}</td>
                           </tr>
                           <tr>
                             <td>Address:</td>
-                            <td>{{session['address']}}</td>
+                            <td>{{pageInfo['address']}}</td>
     
                           </tr>
                           <tr>
-                            <td>Degree</td>
-                            <td>History</td>
+                            <td>Profession</td>
+                            <td>{{pageInfo['job']}}</td>
                           </tr>
                        
                              <tr>
@@ -133,14 +133,14 @@
                           <!--</tr>-->
                             <tr>
                             <td>Fax</td>
-                            <td>MFax number</td>
+                            <td>{{pageInfo['fax']}}</td>
                           </tr>
                           <tr>
                             <td>Email</td>
-                            <td><a href="mailto:mernesto@mail.umw.edu">mernesto@mail.umw.edu</a></td>
+                            <td>{{session['email']}}</td>
                           </tr>
                             <td>Phone Number</td>
-                            <td>123-4567-890(Landline)<br><br>555-4567-890(Mobile)
+                            <td>{{pageInfo['phone']}}
                             </td>
                                
                           </tr>

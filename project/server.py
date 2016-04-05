@@ -58,9 +58,7 @@ def dashIndex():
 @app.route('/SuggestEvent.html', methods=['GET','POST'])
 def suggestEvent():
     print 'in forms'
-    
-    
-    
+
     if request.method == 'POST':
         eventName = request.form['eventName']
         eventLoc = request.form['eventLoc']
@@ -70,23 +68,27 @@ def suggestEvent():
         importance = request.form['importance']
         time = request.form['timePeriod']         
         eventDesc = request.form['eventDesc']
-    
-    
-    
-    
+        
     return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
+    
+@app.route('/SuggestPerson.html', methods=['GET','POST'])
+def suggestPerson():
+    print 'in forms'
+    
+    
+    return render_template('SuggestPerson.html', SelectedMenu = 'SuggestPerson')
 
     
 @app.route('/profile.html')
 def profile():
     print 'in profile'
     if session['loggedIn'] == 'Yes':
-        uName = session['userName']
-        print uName
+        uEmail = session['email']
+        print uEmail
         conn = connectToDB()
         cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
         try:
-            profQuery = cur.mogrify("SELECT Firstname, Lastname, Address, Company FROM users WHERE Username = %s LIMIT 1;", (uName,))
+            profQuery = cur.mogrify("SELECT Firstname, Lastname, Address, Company, Job, Fax, Email, Phone FROM users WHERE Email = %s LIMIT 1;", (uEmail,))
             cur.execute(profQuery)
             print profQuery
         except:
@@ -94,17 +96,12 @@ def profile():
         pageStuff = cur.fetchall()
         entry = pageStuff[0]
         print entry[1]
-        session['firstName'] = entry['firstname']
-        session['lastName'] = entry['lastname']
-        session['address'] = entry['address']
-        session['company'] = entry['company']
-        
     
     else:
         print "Error: Not logged in"
         return render_template('index.html', SelectedMenu = 'Index')
     
-    return render_template('profile.html', SelectedMenu = 'Profile')  
+    return render_template('profile.html', pageInfo=entry, SelectedMenu = 'Profile')  
     
 @app.route('/charts.html')
 def charts():
@@ -147,9 +144,10 @@ def register():
             if (check == check2):
             
                 #dont have all users table datatypes, but we can work on that later
-                regAddQuery = cur.mogrify("""INSERT INTO users (Username, Email, Password, Firstname, Lastname, Company, Address, City)
-                    VALUES(%s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s);""", (request.form['userName'],request.form['email'],request.form['password'],
-                    request.form['firstName'],request.form['lastName'],request.form['comp'],request.form['address'],request.form['city']))
+                regAddQuery = cur.mogrify("""INSERT INTO users (Username, Email, Password, Firstname, Lastname, Company, Job, Address, City, Country, Phone, Fax)
+                    VALUES(%s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s, %s, %s, %s, %s);""", (request.form['userName'],request.form['email'],request.form['password'],
+                    request.form['firstName'],request.form['lastName'],request.form['comp'],request.form['prof'],request.form['address'],request.form['city'],
+                    request.form['country'],request.form['phoneNumber'],request.form['faxNumber']))
                 print (regAddQuery)
                 
                 cur.execute(regAddQuery)
@@ -197,6 +195,13 @@ def addEvent():
     
     
     return render_template('AddEvent.html', SelectedMenu = 'AddEvent')
+
+@app.route('/AddPerson.html', methods=['GET','POST'])
+def addPerson():
+    print 'in forms'
+    
+    
+    return render_template('AddPerson.html', SelectedMenu = 'AddPerson')
     
     
 @app.route('/timeline.html')
@@ -227,17 +232,18 @@ def login():
         loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password,))
         cur.execute(loginQuery)
         print loginQuery
-        
-        result = cur.fetchone()
-        print result
-        if result:
-            print('logged in')
-            print('name = ', result[0])
-            session['userName'] = result[0]
-            session['loggedIn'] = 'Yes'
-            print session['userName']
+        result = cur.fetchall()
+        fullResult = result[0]
+
+
+        print('logged in')
+        print('name = ', fullResult['username'])
+        session['userName'] = fullResult['username']
+        session['loggedIn'] = 'Yes'
+        session['email'] = fullResult['email']
+        print session['userName']
             
-            return redirect(url_for('mainIndex'))
+        return redirect(url_for('mainIndex'))
             
     
         

@@ -79,6 +79,7 @@ CREATE TABLE users (
     Firstname varchar(35),
     Lastname varchar(35),
     Company varchar(80),
+    Job varchar(40),
     Address varchar(70),
     City varchar(40),
     State varchar(40),
