@@ -309,7 +309,7 @@ def on_identify(message):
     pass
  
     
-@socketio.on('checkLogin', namespace='/ISS')
+@socketio.on('userLogin', namespace='/ISS')
 def on_login(data):
     print "in logincheck"
     pw = data['password']

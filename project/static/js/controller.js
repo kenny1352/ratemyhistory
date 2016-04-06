@@ -18,9 +18,9 @@ ISSChatApp.controller('ChatController', function($scope) {
    $scope.name = '';
    $scope.email = '';
    $scope.password = '';
-   $scope.text = '';
-   $scope.search = '';
-   $scope.found = [];
+   // $scope.text = '';
+   // $scope.search = '';
+   // $scope.found = [];
    
    
    socket.on('message', function(msg) {
@@ -39,24 +39,25 @@ ISSChatApp.controller('ChatController', function($scope) {
       $scope.text = '';
    }
    
-   $scope.setName = function setName() {
+   // $scope.setName = function setName() {
       
-   };
+   // };
    
-   $scope.setName2 = function setName2() {
+   // $scope.setName2 = function setName2() {
           
-      //socket.emit('identify', $scope.name2);
-      //$scope.name = $scope.name2;
-      //$scope.$apply();
-      //$scope.name2 = '';
-   };
+   //    //socket.emit('identify', $scope.name2);
+   //    //$scope.name = $scope.name2;
+   //    //$scope.$apply();
+   //    //$scope.name2 = '';
+   // };
    //for logging in, make sure it works
    $scope.processLogin = function processLogin() {
       console.log("Trying to log in");
       //login('hide');
       // var temp = $("email").val();
       // var temp2 = $("password").val();
-      socket.emit('checkLogin', {'email' : $scope.email, 'password' : $scope.password});
+      // socket.emit('userLogin', {'email' : $scope.email, 'password' : $scope.password});
+      socket.emit('userLogin', {'email' : temp, 'password' : temp2});
       console.log("After login emit")
       $scope.password = '';
    };
@@ -68,16 +69,16 @@ ISSChatApp.controller('ChatController', function($scope) {
          console.log("logged in");
          $scope.password = '';
          $scope.loggedIn = 'false';
-         $("#logout_button").show()
-         $("#login_button").hide()
+         $("#logout_button").show();
+         $("#login_button").hide();
          $("#send_button").show();
          $("#chatText").show();
          $("#msgpane").show();
          $scope.$apply();
       } else {
          console.log("logged out");
-         $("#logout_button").hide()
-         $("#login_button").show()
+         $("#logout_button").hide();
+         $("#login_button").show();
          $("#send_button").hide();
          $("#chatText").hide();
          $("#msgpane").hide();
@@ -90,20 +91,20 @@ ISSChatApp.controller('ChatController', function($scope) {
    });
    
    
-   socket.on('search', function(search) {
-      console.log(search);
-      $scope.found.push(search);
-      $scope.$apply();
-      var elem = document.getElementById('find')
-      elem.scrollTop = elem.scrollHeight;
-   });
+   // socket.on('search', function(search) {
+   //    console.log(search);
+   //    $scope.found.push(search);
+   //    $scope.$apply();
+   //    var elem = document.getElementById('find')
+   //    elem.scrollTop = elem.scrollHeight;
+   // });
    
      
-      $scope.find = function find(){
-      console.log('finding message: ', $scope.search)
-      socket.emit('search', $scope.search);
-      $scope.search = '';
-   }
+   //    $scope.find = function find(){
+   //    console.log('finding message: ', $scope.search)
+   //    socket.emit('search', $scope.search);
+   //    $scope.search = '';
+   // }
       
    $scope.logout = function logout() {
       console.log("logging out");
