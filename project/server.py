@@ -119,7 +119,6 @@ def suggestEvent():
         time = request.form['timePeriod']         
         eventDesc = request.form['eventDesc']
         
-<<<<<<< HEAD
         receiver=['ratemyhistory@gmail.com']
         sender = ['ratemyhistory@gmail.com']
                 
@@ -151,9 +150,7 @@ def suggestEvent():
             complete = True
         except Exception as e:
             print(e)
-=======
-        # ADD SEND INFO TO EMAIL HERE!!!!!
->>>>>>> 0f9fd77ecfc024087e703386d0981455fe872fd0
+
         
     return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
     
