@@ -34,20 +34,20 @@ ISSChatApp.controller('ChatController', function($scope) {
    });
    
   
-   $scope.send = function send(){
+   $scope.send = function(){
       console.log('Sending message: ', $scope.text);
       socket.emit('message', {'text' : $scope.text});
       $scope.text = '';
    };
    
    
-   //for logging in, make sure it works
-   $scope.processLogin = function processLogin() {
+   //GETTING RID OF THIS DONT CHANGE YET
+   $scope.processLogin = function () {
       console.log("Trying to log in");
       //login('hide');
       // var temp = $('email').val();
       // var temp2 = $('password').val();
-      socket.emit('userLogin', {'email' : $scope.email, 'password' : $scope.password});
+      //socket.emit('userLogin', {'email' : $scope.email, 'password' : $scope.password});
       // socket.emit('userLogin', {'email' : temp, 'password' : temp2});
       console.log("After login emit");
       $scope.password = '';
@@ -85,7 +85,7 @@ ISSChatApp.controller('ChatController', function($scope) {
    });
    
 
-   $scope.logout = function logout() {
+   $scope.logout = function() {
       console.log("logging out");
       //login('hide');
       socket.emit('logout', {});
