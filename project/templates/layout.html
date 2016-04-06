@@ -47,7 +47,13 @@
             padding-right: 5em;
             border: 6px groove (internal value);
         }    
-    
+        
+        div.scroll {
+            background-color: #F8F8F8;
+            width: 250px;
+            height: 200px;
+            overflow: scroll;
+        }
        
     </style>
 </head>
@@ -215,15 +221,15 @@
 
                       
                     <!--<div class="col-md-8">-->
-                    <li {% if SelectedMenu == 'Live Chat' %} class="active" {% endif %}>
-                        <i class="fa fa-fw fa-pencil-square-o"></i>
-                           <a href="#"> Live Chat</a>
-                         </li>  
+                    <!--<li {% if SelectedMenu == 'Live Chat' %} class="active" {% endif %}>-->
+                        <!--<i class="fa fa-fw fa-pencil-square-o"></i>-->
+                           <!--<a href="#"> Live Chat</a>-->
+                         <!--</li>  -->
                         
                         <div class="scroll" id="msgpane">
-                                 <p ng-repeat="msg in messages">
-                                   <b ng-bind="msg.name"></b>:&nbsp;
-                                   <span ng-bind="msg.text"></span>
+                                 <!--<p ng-repeat="msg in messages">-->
+                                   <!--<b ng-bind="msg.name"></b>:&nbsp;-->
+                                   <!--<span ng-bind="msg.text"></span>-->
                                         
                                  </p>
                      
