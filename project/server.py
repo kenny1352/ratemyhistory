@@ -42,7 +42,9 @@ def makeConnection():
     
     
     try:
-        query =cur.mogrify("SELECT c.message, s.sender FROM chat AS c CROSS JOIN usersChat AS s WHERE c.chatid = s.chatid")
+        print "before query in connect"
+        query =cur.mogrify("SELECT c.message, s.sender FROM chat AS c CROSS JOIN usersChat AS s WHERE c.chat_id = s.chat_id")
+        print "after query"
         cur.execute(query)
         print query
         
@@ -119,6 +121,10 @@ def suggestEvent():
         time = request.form['timePeriod']         
         eventDesc = request.form['eventDesc']
         
+<<<<<<< HEAD
+=======
+
+>>>>>>> b1fb809126f9a0e60d9757ce5b892691b67e8ed0
         receiver=['ratemyhistory@gmail.com']
         sender = ['ratemyhistory@gmail.com']
                 
@@ -299,6 +305,12 @@ def search():
     print 'in search'
     
     return render_template('search.html', SelectedMenu = 'searchengine')
+ 
+ 
+@socketio.on('identify', namespace='/ISS')
+def on_identify(message):
+    pass
+ 
     
 @socketio.on('checkLogin', namespace='/ISS')
 def on_login(data):
