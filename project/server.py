@@ -101,7 +101,7 @@ def profile():
         print "Error: Not logged in"
         return render_template('index.html', SelectedMenu = 'Index')
     
-    return render_template('profile.html', pageInfo=entry, SelectedMenu = 'Profile')  
+    return render_template('anotherProfile.html', pageInfo=entry, SelectedMenu = 'Profile')  
     
 @app.route('/charts.html')
 def charts():
