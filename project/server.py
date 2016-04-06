@@ -39,7 +39,9 @@ def makeConnection():
     
     
     try:
-        query =cur.mogrify("SELECT c.message, s.sender FROM chat AS c CROSS JOIN usersChat AS s WHERE c.chatid = s.chatid")
+        print "before query in connect"
+        query =cur.mogrify("SELECT c.message, s.sender FROM chat AS c CROSS JOIN usersChat AS s WHERE c.chat_id = s.chat_id")
+        print "after query"
         cur.execute(query)
         print query
         
@@ -265,6 +267,12 @@ def search():
     print 'in search'
     
     return render_template('search.html', SelectedMenu = 'searchengine')
+ 
+ 
+@socketio.on('identify', namespace='/ISS')
+def on_identify(message):
+    pass
+ 
     
 @socketio.on('checkLogin', namespace='/ISS')
 def on_login(data):

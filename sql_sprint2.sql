@@ -134,9 +134,10 @@ INSERT INTO eventtoperson (EventID, PersonID) VALUES
 (1,1);
 
 GRANT INSERT, UPDATE, SELECT ON ALL TABLES IN SCHEMA public To assist;
-GRANT USAGE ON users_id_seq to assist;
-GRANT USAGE ON events_eventid_seq to assist;
+GRANT USAGE ON users_userid_seq to assist;
+GRANT USAGE ON events_id_seq to assist;
 GRANT USAGE ON people_id_seq to assist;
-
+GRANT USAGE ON chat_chat_id_seq to assist;
+GRANT USAGE ON userschat_chat_id_seq to assist;
 ---GRANT USAGE ON relations_id_seq to assist;
 
