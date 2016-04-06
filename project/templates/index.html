@@ -143,13 +143,15 @@ th, td {
                     <caption><b>Top Ten Overall Ratings of Historical Events/Individuals Based on User Popularity</b></caption>
                     <tr>
                        <th>Event/Individuals</th>
-                        <th>Ratings</th>
+                        <th>Views</th>
                     </tr>
+                    {% for result in topten %}
                     <tr>
-                       <td>1. Waterloo</td>
-                        <td>5 stars</td>
-                    </tr> 
-                        <tr>
+                       <td>{{result[0]}}</td>
+                        <td>{{result[1]}}</td>
+                    </tr>
+                    {% endfor %}
+                        <!--<tr>>
                         <td>2. Christopher Columbus</td>
                         <td>3 star</td>
                     </tr> 
@@ -184,7 +186,7 @@ th, td {
                     <tr>
                         <td>10. Invention of the Digital Computer</td>
                         <td>10 stars</td>
-                    </tr>
+                    <</tr>-->
                 </table>
             </div>   
             

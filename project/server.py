@@ -95,16 +95,34 @@ def mainIndex():
     if 'username' in session:
         logged = 1
     
-        
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    try:
+        profQuery = cur.mogrify("SELECT name, views from events UNION SELECT name, views from people ORDER BY views desc LIMIT 10;")
+        cur.execute(profQuery)
+        rows = cur.fetchall()
+        print profQuery
+    except:
+        print("Error executing SELECT statement")    
     
-    return render_template('index.html', SelectedMenu = 'Index')
+    return render_template('index.html', SelectedMenu = 'Index', topten = rows)
     
     
 @app.route('/index.html')
 def dashIndex():
     print 'in hello world'
     
-    return render_template('index.html', SelectedMenu = 'Index')
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    try:
+        profQuery = cur.mogrify("SELECT name, views from events UNION SELECT name, views from people ORDER BY views desc LIMIT 10;")
+        cur.execute(profQuery)
+        rows = cur.fetchall()
+        print profQuery
+    except:
+        print("Error executing SELECT statement") 
+    
+    return render_template('index.html', SelectedMenu = 'Index', topten = rows)
 
     
 @app.route('/SuggestEvent.html', methods=['GET','POST'])
@@ -126,12 +144,13 @@ def suggestEvent():
         receiver=['ratemyhistory@gmail.com']
         sender = ['ratemyhistory@gmail.com']
                 
-        message = "<p>Here is a suggested Event:</p><br />" + date + "<br /><br />"
-        message +="Event Name: " + eventName + "<br />"
-        message += "Event Location: " + eventLoc + "<br />"
-        message += "Importance: " + importance + "<br />"
-        message += "Time: " + time + "<br />"
-        message += "Description: " + eventDesc + "<br />"
+        message = "<p>Here is a suggested Event:<br /><br />"
+        message += "<b>Event Name: </b>" + eventName + "<br />"
+        message += "<b>Event Location: </b>" + eventLoc + "<br />"
+        message += "<b>Importance: </b>" + importance + "<br />"
+        message += "<b>Time: </b>" + time + "<br />"
+        message += "<b>Description: </b>" + eventDesc + "<br />"
+        message += "<b>User Email: </b>" + email + "<br />"
         print(message)
         message += "<br /><br />Thank you, <br />Rate My History User"
         
