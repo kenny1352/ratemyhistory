@@ -23,29 +23,29 @@
                 </div>
             
 <!-- Had help from http://stackoverflow.com/questions/11930253/how-to-create-a-login-page-when-username-and-password-is-equal-in-html -->
-                <form ng-submit="processLogin()" >
+                <form ng-submit="processLogin()">
                         <fieldset>
                             <p>To use <i><strong>Rate My History</strong></i>, you must login first! <br>Please enter your email and password to begin your journey of rating history!</p>
                             Email: <br>
-                            <input type="text" ng-model="email"value="" name="email" id="email"></br>
+                            <input type="text" ng-model="email" value="" id="email"></br>
                             Password: <br>
-                            <input type="password" ng-model="password" value="" name="password"  id="password"/></br>
+                            <input type="password" ng-model="password" value=""   id="password"/></br>
                             <br>
                             <input type="submit" ng-disabled="!password" value="Login" id="login_button">
                         </fieldset> 
                     </form>
-                    <script language="javascript">
-                        //Doesnt do anything....
-                        function check(form){
-                            if(form.username.value == "aemail" && form.password.value =="apassword"){
-                                window.location = window.location.host
-                            }
-                            else{
-                                alert("Error! Please enter the correct Username or password!")
-                            }
-                        }
-                    </script>
-                
+                    <!--<script language="javascript">
+                    //     //Doesnt do anything....
+                    //     function check(form){
+                    //         if(form.username.value == "aemail" && form.password.value =="apassword"){
+                    //             window.location = window.location.host
+                    //         }
+                    //         else{
+                    //             alert("Error! Please enter the correct Username or password!")
+                    //         }
+                    //     }
+                    // </script>
+                                            -->
         </div>
     </div>
 {% endblock %}

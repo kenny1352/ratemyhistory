@@ -30,7 +30,7 @@ def connectToDB():
        
 
 
-@socketio.on('connect', namespace='/ISS')
+@socketio.on('connect', namespace='/iss')
 def makeConnection():
     
     conn = connectToDB()
@@ -59,7 +59,7 @@ def makeConnection():
     except:
         print("Error in database")        
 
-@socketio.on('message', namespace='/ISS')
+@socketio.on('message', namespace='/iss')
 def new_message(message):
     
     conn = connectToDB()
@@ -305,12 +305,12 @@ def search():
     return render_template('search.html', SelectedMenu = 'searchengine')
  
  
-@socketio.on('identify', namespace='/ISS')
+@socketio.on('identify', namespace='/iss')
 def on_identify(message):
     pass
  
     
-@socketio.on('userLogin', namespace='/ISS')
+@socketio.on('userLogin', namespace='/iss')
 def on_login(data):
     print "in logincheck"
     pw = data['password']
@@ -355,7 +355,7 @@ def on_login(data):
 #     log = logged
 #     return log          
     #updateRoster()
-@socketio.on('logout', namespace='/ISS')
+@socketio.on('logout', namespace='/iss')
 def on_disconnect(data):
     print("i am here")
     session['logged'] = 0
@@ -422,4 +422,4 @@ def bootstrap2():
 
 # start the server
 if __name__ == '__main__':
-        app.run(host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)
+        socketio.run(app, host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)

@@ -12,7 +12,7 @@ function login(showhide){
 
 ISSChatApp.controller('ChatController', function($scope) {
    var socket = io.connect('https://' + document.domain + ':' 
-   +location.port + '/ISS');
+   +location.port + '/iss');
    
    $scope.messages = [];
    $scope.name = '';
@@ -27,44 +27,34 @@ ISSChatApp.controller('ChatController', function($scope) {
       console.log(msg);
       $scope.messages.push(msg);
       $scope.$apply();
-      var elem = document.getElementById('msgpane')
+      var elem = document.getElementById('msgpane');
       elem.scrollTop = elem.scrollHeight;
        
    });
    
   
    $scope.send = function send(){
-      console.log('Sending message: ', $scope.text)
+      console.log('Sending message: ', $scope.text);
       socket.emit('message', $scope.text);
       $scope.text = '';
-   }
+   };
    
-   // $scope.setName = function setName() {
-      
-   // };
    
-   // $scope.setName2 = function setName2() {
-          
-   //    //socket.emit('identify', $scope.name2);
-   //    //$scope.name = $scope.name2;
-   //    //$scope.$apply();
-   //    //$scope.name2 = '';
-   // };
    //for logging in, make sure it works
    $scope.processLogin = function processLogin() {
       console.log("Trying to log in");
       //login('hide');
-      // var temp = $("email").val();
-      // var temp2 = $("password").val();
+      var temp = $('email').val();
+      var temp2 = $('password').val();
       // socket.emit('userLogin', {'email' : $scope.email, 'password' : $scope.password});
       socket.emit('userLogin', {'email' : temp, 'password' : temp2});
-      console.log("After login emit")
+      console.log("After login emit");
       $scope.password = '';
    };
    
    socket.on('logged', function(data) {
-      logged_in = data['logged_in']
-      console.log("checking login")
+      logged_in = data['logged_in'];
+      console.log("checking login");
       if (logged_in == 1) {
          console.log("logged in");
          $scope.password = '';
@@ -87,25 +77,10 @@ ISSChatApp.controller('ChatController', function($scope) {
          $scope.loggedIn = '';
          $scope.$apply();
       }
-      console.log($scope.loggedIn)
+      console.log($scope.loggedIn);
    });
    
-   
-   // socket.on('search', function(search) {
-   //    console.log(search);
-   //    $scope.found.push(search);
-   //    $scope.$apply();
-   //    var elem = document.getElementById('find')
-   //    elem.scrollTop = elem.scrollHeight;
-   // });
-   
-     
-   //    $scope.find = function find(){
-   //    console.log('finding message: ', $scope.search)
-   //    socket.emit('search', $scope.search);
-   //    $scope.search = '';
-   // }
-      
+
    $scope.logout = function logout() {
       console.log("logging out");
       //login('hide');
