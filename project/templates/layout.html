@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html ng-app="ISSChatApp">
 
 <head>
 
@@ -22,6 +22,23 @@
 
     <!-- Custom Fonts -->
     <link href="{{ url_for('static', filename='font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+
+
+    <script src=" https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js" charset="utf-8"></script>
+    <script src=" https://code.angularjs.org/1.4.9/angular.min.js" charset="utf-8"></script>
+    <script src=" https://rawgit.com/dwmkerr/angular-modal-service/master/dst/angular-modal-service.js" charset="utf-8"></script>
+    <script type="text/javascript" src=" https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.5/socket.io.min.js" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='js/controller.js') }}" charset="utf-8"></script>
+
+
+
+
+
+
+
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.4/socket.io.js"></script>-->
+    <!--<script src="{{ url_for('static', filename='js/controller.js') }}" charset="utf-8"></script>-->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -77,7 +94,10 @@
             <!-- Top Menu Items -->
             <ul class="nav navbar-right top-nav">
                 <li>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0f9fd77ecfc024087e703386d0981455fe872fd0
                         <a href="/login.html"><i class="fa fa-fw fa-sign-in" id="loginbutton"></i> Login</a>
 
                 </li>
@@ -183,7 +203,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="/logout"><i class="fa fa-fw fa-sign-out"></i> Log Out</a>
+                            <a href="/logout"><i class="fa fa-fw fa-sign-out" id=logout_button></i> Log Out</a>
                         </li>
                     </ul>
                 </li>
@@ -240,7 +260,7 @@
          
                          <form ng-submit="send()">
                               
-                                <input type="text"  ng-model="text" size="25"  placeholder="..">
+                                <input type="text"  ng-model="text" size="25"  placeholder=".." id=chatText>
                                 <br><br>
                                 <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!loggedIn" id="send_button">
                              
