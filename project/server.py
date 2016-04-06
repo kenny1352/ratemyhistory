@@ -312,6 +312,7 @@ def on_identify(message):
     
 @socketio.on('checkLogin', namespace='/ISS')
 def on_login(data):
+    print "in logincheck"
     pw = data['password']
     userEmail = data['email']
     
