@@ -122,6 +122,7 @@ def suggestEvent():
         eventDesc = request.form['eventDesc']
         
 
+
         receiver=['ratemyhistory@gmail.com']
         sender = ['ratemyhistory@gmail.com']
                 
