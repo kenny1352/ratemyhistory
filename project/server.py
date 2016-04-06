@@ -4,6 +4,9 @@ import psycopg2
 import psycopg2.extras
 import crypt, getpass, pwd
 import time
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from datetime import date
 from flask import Flask, redirect, url_for,session, render_template, jsonify, request
 from flask.ext.socketio import SocketIO, emit
@@ -118,7 +121,39 @@ def suggestEvent():
         time = request.form['timePeriod']         
         eventDesc = request.form['eventDesc']
         
-        # ADD SEND INFO TO EMAIL HERE!!!!!
+
+        receiver=['ratemyhistory@gmail.com']
+        sender = ['ratemyhistory@gmail.com']
+                
+        message = "<p>Here is a suggested Event:</p><br />" + date + "<br /><br />"
+        message +="Event Name: " + eventName + "<br />"
+        message += "Event Location: " + eventLoc + "<br />"
+        message += "Importance: " + importance + "<br />"
+        message += "Time: " + time + "<br />"
+        message += "Description: " + eventDesc + "<br />"
+        print(message)
+        message += "<br /><br />Thank you, <br />Rate My History User"
+        
+        msg = MIMEMultipart('alternative')
+        emailMsg = MIMEText(message, 'html')
+        msg.attach(emailMsg)
+                
+        msg['Subject'] = 'Suggest Event'
+        msg['From'] = 'ratemyhistory@gmail.com'
+        msg['To'] = 'ratemyhistory@gmail.com'
+               
+        try:
+            smtpObj = smtplib.SMTP("smtp.gmail.com", 587)
+            smtpObj.ehlo()
+            smtpObj.starttls()
+            smtpObj.login('ratemyhistory@gmail.com', 'zacharski350')
+            smtpObj.sendmail(sender, receiver, msg.as_string())    
+            smtpObj.quit()
+            print "Successfully sent email"
+            complete = True
+        except Exception as e:
+            print(e)
+
         
     return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
     
