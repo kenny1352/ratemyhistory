@@ -6,12 +6,12 @@ import crypt, getpass, pwd
 import time
 from datetime import date
 from flask import Flask, redirect, url_for,session, render_template, jsonify, request
-#from flask.ext.socketio import SocketIO, emit, join_room, leave_room
+from flask.ext.socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
-#socketio = SocketIO(app)
+socketio = SocketIO(app)
 
 def connectToDB():
     #change connection to session db
@@ -24,13 +24,60 @@ def connectToDB():
     except:
         print("Can't connect to database")
 
-#CHANGE NAMESPACE TO WHAT WE DECIDE
-# @socketio.on('connect', namespace='/')
-# def makeConnection():
+       
+
+
+@socketio.on('connect', namespace='/ISS')
+def makeConnection():
     
-#     conn = connectToDB()
-#     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)        
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    
+    
+    session['username'] = 'New user'
+    print('connected')
+    
+    
+    try:
+        query =cur.mogrify("SELECT c.message, s.sender FROM chat AS c CROSS JOIN usersChat AS s WHERE c.chatid = s.chatid")
+        cur.execute(query)
+        print query
         
+        messages = cur.fetchall()
+        print messages
+        
+        for message in messages:
+            tmp = {'text': message[1], 'name': message[0] }
+            print(message)
+            emit('message', tmp)
+    
+    except:
+        print("Error in database")        
+
+@socketio.on('message', namespace='/ISS')
+def new_message(message):
+    
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    senderUser = session['username']
+
+    try:
+        print('message: ' + str(message))
+        print('senderUser: ' + str(senderUser))
+        userQuery = cur.mogrify("""INSERT INTO usersChat (sender) VALUES %s;""", (senderUser,))
+        msgQuery = cur.mogrify("""INSERT INTO chat message VALUES  %s;""", (message,))
+        cur.execute(msgQuery)
+        print("message added to database")
+        conn.commit()
+        
+        tmp = {'text': message, 'name': senderUser}
+        emit('message', tmp, broadcast=True)
+    except:
+        print("Error inserting")
+        conn.rollback()
+
+
+
 print ("before app route")
 
 
@@ -68,6 +115,8 @@ def suggestEvent():
         importance = request.form['importance']
         time = request.form['timePeriod']         
         eventDesc = request.form['eventDesc']
+        
+        # ADD SEND INFO TO EMAIL HERE!!!!!
         
     return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
     
@@ -217,33 +266,86 @@ def search():
     
     return render_template('search.html', SelectedMenu = 'searchengine')
     
+@socketio.on('checkLogin', namespace='/ISS')
+def on_login(data):
+    pw = data['password']
+    userEmail = data['email']
     
-@app.route('/login.html', methods=['GET','POST'])
-def login():
-    print 'in login'
+    #print (user)
+    print (userEmail)
+    print 'login '  + pw
+    #session['logged'] = 0
+    
     conn = connectToDB()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    print('connected')
     
-    if request.method == 'POST':
-        print "HI"
-        email = request.form['email']
-        password = request.form['password']
+    userQuery = cur.mogrify("select email from users where email = %s", (userEmail,))
+    cur.execute(userQuery)
+    userResult = cur.fetchone()
+    
+    if userResult:
+        print 'already there'
+        loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (userEmail, pw,))
+        cur.execute(loginQuery) 
+        print ('query executed')
+    
+        result = cur.fetchone()
+        if result:
+            print('logged in!')
+            print('saving information to the session...')
+            #needs work to pass to javascript to limit the message send function
+            #session['logged'] = json.dumps('true')
+            session['logged'] = 1
+            session['username'] = result['username']
+            emit('logged', {'logged_in' : session['logged'] })
+            return redirect(url_for('mainIndex'))
+        else:
+            print ('incorrect login information')
+            session['logged'] = 0
+            emit ('logged',{'logged_in' : session['logged'] })
+            return redirect(url_for('login'))
 
-        loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password,))
-        cur.execute(loginQuery)
-        print loginQuery
-        result = cur.fetchall()
-        fullResult = result[0]
+# def loggedIn(logged):
+#     log = logged
+#     return log          
+    #updateRoster()
+@socketio.on('logout', namespace='/ISS')
+def on_disconnect(data):
+    print("i am here")
+    session['logged'] = 0
+    emit('logged', {'logged_in' : session['logged']})
+    print 'user disconnected'
 
 
-        print('logged in')
-        print('name = ', fullResult['username'])
-        session['userName'] = fullResult['username']
-        session['loggedIn'] = 'Yes'
-        session['email'] = fullResult['email']
-        print session['userName']
+
+
+@app.route('/login.html')
+def login():
+    print 'in login'
+    # conn = connectToDB()
+    # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    
+    # if request.method == 'POST':
+    #     print "HI"
+    #     email = request.form['email']
+    #     password = request.form['password']
+
+    #     loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password,))
+    #     cur.execute(loginQuery)
+    #     print loginQuery
+    #     result = cur.fetchall()
+    #     fullResult = result[0]
+
+
+    #     print('logged in')
+    #     print('name = ', fullResult['username'])
+    #     session['userName'] = fullResult['username']
+    #     session['loggedIn'] = 'Yes'
+    #     session['email'] = fullResult['email']
+    #     print session['userName']
             
-        return redirect(url_for('mainIndex'))
+    #     return redirect(url_for('mainIndex'))
             
     
         
