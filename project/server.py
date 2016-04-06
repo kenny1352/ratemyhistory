@@ -391,7 +391,7 @@ def on_disconnect(data):
 
 
 # need to login in app.rout('/login') and create session variable in the app.route so that it carries across sessions
-
+# ng-init LOOK THIS UPs
 @app.route('/login.html', methods=['GET', 'POST'])
 def login():
     print 'in login'
@@ -416,7 +416,7 @@ def login():
             print('logged in')
             print('name = ', result['username'])
             session['userName'] = result['username']
-            session['loggedIn'] = 1
+            session['logged'] = 1
             session['email'] = result['email']
             print session['userName']
             socketio.emit('userLogin')    
@@ -425,7 +425,7 @@ def login():
             print(e)
             #print "passwords didnt match"
             print "error logging in"
-            session['loggedIn'] = 0
+            session['logged'] = 0
             return redirect(url_for('login'))
     
         
