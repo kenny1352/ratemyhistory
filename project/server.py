@@ -4,14 +4,17 @@ import psycopg2
 import psycopg2.extras
 import crypt, getpass, pwd
 import time
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from datetime import date
 from flask import Flask, redirect, url_for,session, render_template, jsonify, request
-#from flask.ext.socketio import SocketIO, emit, join_room, leave_room
+from flask.ext.socketio import SocketIO, emit
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
-#socketio = SocketIO(app)
+socketio = SocketIO(app)
 
 def connectToDB():
     #change connection to session db
@@ -24,13 +27,63 @@ def connectToDB():
     except:
         print("Can't connect to database")
 
-#CHANGE NAMESPACE TO WHAT WE DECIDE
-# @socketio.on('connect', namespace='/')
-# def makeConnection():
+       
+
+
+@socketio.on('connect', namespace='/iss')
+def makeConnection():
     
-#     conn = connectToDB()
-#     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)        
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    
+    
+    session['username'] = ''
+    print('connected')
+    
+    
+    try:
+        print "before query in connect"
+        query =cur.mogrify("SELECT c.message, s.sender FROM chat AS c CROSS JOIN usersChat AS s WHERE c.chat_id = s.chat_id")
+        print "after query"
+        cur.execute(query)
+        print query
         
+        messages = cur.fetchall()
+        print messages
+        
+        for message in messages:
+            tmp = {'text': message[1], 'name': message[0] }
+            print(message)
+            emit('message', tmp)
+    
+    except:
+        print("Error in database")        
+
+@socketio.on('message', namespace='/iss')
+def new_message(message):
+    
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    senderUser = session['username']
+
+    try:
+        print('message: ' + str(message))
+        print('senderUser: ' + str(senderUser))
+        userQuery = cur.mogrify("""INSERT INTO usersChat (sender) VALUES %s;""", (senderUser,))
+        msgQuery = cur.mogrify("""INSERT INTO chat (message) VALUES  %s;""", (message,))
+        cur.execute(userQuery)
+        cur.execute(msgQuery)
+        print("message added to database")
+        conn.commit()
+        
+        tmp = {'text': message, 'name': senderUser}
+        emit('message', tmp, broadcast=True)
+    except:
+        print("Error inserting")
+        conn.rollback()
+
+
+
 print ("before app route")
 
 
@@ -43,16 +96,34 @@ def mainIndex():
     if 'username' in session:
         logged = 1
     
-        
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    try:
+        profQuery = cur.mogrify("SELECT name, views from events UNION SELECT name, views from people ORDER BY views desc LIMIT 10;")
+        cur.execute(profQuery)
+        rows = cur.fetchall()
+        print profQuery
+    except:
+        print("Error executing SELECT statement")    
     
-    return render_template('index.html', SelectedMenu = 'Index')
+    return render_template('index.html', SelectedMenu = 'Index', topten = rows)
     
     
 @app.route('/index.html')
 def dashIndex():
     print 'in hello world'
     
-    return render_template('index.html', SelectedMenu = 'Index')
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    try:
+        profQuery = cur.mogrify("SELECT name, views from events UNION SELECT name, views from people ORDER BY views desc LIMIT 10;")
+        cur.execute(profQuery)
+        rows = cur.fetchall()
+        print profQuery
+    except:
+        print("Error executing SELECT statement") 
+    
+    return render_template('index.html', SelectedMenu = 'Index', topten = rows)
 
     
 @app.route('/SuggestEvent.html', methods=['GET','POST'])
@@ -68,6 +139,42 @@ def suggestEvent():
         importance = request.form['importance']
         time = request.form['timePeriod']         
         eventDesc = request.form['eventDesc']
+        
+
+
+        receiver=['ratemyhistory@gmail.com']
+        sender = ['ratemyhistory@gmail.com']
+                
+        message = "<p>Here is a suggested Event:<br /><br />"
+        message += "<b>Event Name: </b>" + eventName + "<br />"
+        message += "<b>Event Location: </b>" + eventLoc + "<br />"
+        message += "<b>Importance: </b>" + importance + "<br />"
+        message += "<b>Time: </b>" + time + "<br />"
+        message += "<b>Description: </b>" + eventDesc + "<br />"
+        message += "<b>User Email: </b>" + email + "<br />"
+        print(message)
+        message += "<br /><br />Thank you, <br />Rate My History User"
+        
+        msg = MIMEMultipart('alternative')
+        emailMsg = MIMEText(message, 'html')
+        msg.attach(emailMsg)
+                
+        msg['Subject'] = 'Suggest Event'
+        msg['From'] = 'ratemyhistory@gmail.com'
+        msg['To'] = 'ratemyhistory@gmail.com'
+               
+        try:
+            smtpObj = smtplib.SMTP("smtp.gmail.com", 587)
+            smtpObj.ehlo()
+            smtpObj.starttls()
+            smtpObj.login('ratemyhistory@gmail.com', 'zacharski350')
+            smtpObj.sendmail(sender, receiver, msg.as_string())    
+            smtpObj.quit()
+            print "Successfully sent email"
+            complete = True
+        except Exception as e:
+            print(e)
+
         
     return render_template('SuggestEvent.html', SelectedMenu = 'SuggestEvent')
     
@@ -216,34 +323,96 @@ def search():
     print 'in search'
     
     return render_template('search.html', SelectedMenu = 'searchengine')
+ 
+ 
+@socketio.on('identify', namespace='/iss')
+def on_identify(message):
+    pass
+ 
     
+@socketio.on('userLogin', namespace='/iss')
+def on_login(data):
+    print "in logincheck"
+    pw = data['password']
+    userEmail = data['email']
     
-@app.route('/login.html', methods=['GET','POST'])
-def login():
-    print 'in login'
+    #print (user)
+    print (userEmail)
+    print 'login '  + pw
+    #session['logged'] = 0
+    
     conn = connectToDB()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    print('connected')
     
-    if request.method == 'POST':
-        print "HI"
-        email = request.form['email']
-        password = request.form['password']
+    # userQuery = cur.mogrify("select email from users where email = %s", (userEmail,))
+    # cur.execute(userQuery)
+    # userResult = cur.fetchone()
+    
+    
+    print 'already there'
+    loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (userEmail, pw,))
+    cur.execute(loginQuery) 
+    print ('query executed')
 
-        loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password,))
-        cur.execute(loginQuery)
-        print loginQuery
-        result = cur.fetchall()
-        fullResult = result[0]
+    result = cur.fetchone()
+    print result
+    if result:
+        print('logged in!')
+        print('saving information to the session...')
+        #needs work to pass to javascript to limit the message send function
+        #session['logged'] = json.dumps('true')
+        session['logged'] = 1
+        session['username'] = result[0]
+        print session['username']
+        emit('logged', {'logged_in' : session['logged'] })
+        #return redirect(url_for('mainIndex'))
+    else:
+        print ('incorrect login information')
+        session['logged'] = 0
+        emit ('logged',{'logged_in' : session['logged'] })
+        #return redirect(url_for('login'))
+
+# def loggedIn(logged):
+#     log = logged
+#     return log          
+    #updateRoster()
+@socketio.on('logout', namespace='/iss')
+def on_disconnect(data):
+    print("i am here")
+    session['logged'] = 0
+    emit('logged', {'logged_in' : session['logged']})
+    print 'user disconnected'
 
 
-        print('logged in')
-        print('name = ', fullResult['username'])
-        session['userName'] = fullResult['username']
-        session['loggedIn'] = 'Yes'
-        session['email'] = fullResult['email']
-        print session['userName']
+
+
+@app.route('/login.html')
+def login():
+    print 'in login'
+    # conn = connectToDB()
+    # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    
+    # if request.method == 'POST':
+    #     print "HI"
+    #     email = request.form['email']
+    #     password = request.form['password']
+
+    #     loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password,))
+    #     cur.execute(loginQuery)
+    #     print loginQuery
+    #     result = cur.fetchall()
+    #     fullResult = result[0]
+
+
+    #     print('logged in')
+    #     print('name = ', fullResult['username'])
+    #     session['userName'] = fullResult['username']
+    #     session['loggedIn'] = 'Yes'
+    #     session['email'] = fullResult['email']
+    #     print session['userName']
             
-        return redirect(url_for('mainIndex'))
+    #     return redirect(url_for('mainIndex'))
             
     
         
@@ -275,4 +444,4 @@ def bootstrap2():
 
 # start the server
 if __name__ == '__main__':
-        app.run(host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)
+        socketio.run(app, host=os.getenv('IP', '0.0.0.0'), port =int(os.getenv('PORT', 8080)), debug=True)
