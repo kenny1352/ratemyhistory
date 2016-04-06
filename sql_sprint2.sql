@@ -128,10 +128,10 @@ CREATE TABLE eventtoperson (
 );
 
 INSERT INTO eventtoperson (EventID, PersonID) VALUES
-(0,0),
-(1,0),
-(0,1),
-(1,1);
+(1,1),
+(2,1),
+(1,2),
+(2,2);
 
 GRANT INSERT, UPDATE, SELECT ON ALL TABLES IN SCHEMA public To assist;
 GRANT USAGE ON users_userid_seq to assist;

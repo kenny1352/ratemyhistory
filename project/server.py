@@ -121,10 +121,8 @@ def suggestEvent():
         time = request.form['timePeriod']         
         eventDesc = request.form['eventDesc']
         
-<<<<<<< HEAD
-=======
 
->>>>>>> b1fb809126f9a0e60d9757ce5b892691b67e8ed0
+
         receiver=['ratemyhistory@gmail.com']
         sender = ['ratemyhistory@gmail.com']
                 
