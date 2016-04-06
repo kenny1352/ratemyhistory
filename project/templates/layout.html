@@ -238,8 +238,8 @@
                         </div>
                         </form>
                     </li>
-                <li class="container" ng-controller="ChatController">
-                <div class="row">
+                <li class="container" >
+                <div class="row" ng-controller="ChatController">
                 <!--<div style type="width:215px;height:100;padding:5px;border:2px solid white;">-->
                     
 
@@ -258,9 +258,9 @@
                          <!--</li>  -->
                         
                         <div class="scroll" id="msgpane">
-                                 <!--<p ng-repeat="msg in messages">-->
-                                   <!--<b ng-bind="msg.name"></b>:&nbsp;-->
-                                   <!--<span ng-bind="msg.text"></span>-->
+                                 <p ng-repeat="msg in messages">
+                                   <b ng-bind="msg.name"></b>:&nbsp;
+                                   <span ng-bind="msg.text"></span>
                                         
                                  </p>
                      
@@ -271,7 +271,7 @@
                               
                                 <input type="text"  ng-model="text" size="25"  placeholder=".." id=chatText>
                                 <br><br>
-                                <input type="submit" class="span1 btn btn-primary" value="Send" ng-disabled="!loggedIn" id="send_button">
+                                <input type="submit" class="span1 btn btn-primary" value="Send"  id="send_button">
                              
                          </form>
                          </div>

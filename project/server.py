@@ -37,7 +37,7 @@ def makeConnection():
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     
     
-    session['username'] = 'New user'
+    session['username'] = ''
     print('connected')
     
     
@@ -70,7 +70,8 @@ def new_message(message):
         print('message: ' + str(message))
         print('senderUser: ' + str(senderUser))
         userQuery = cur.mogrify("""INSERT INTO usersChat (sender) VALUES %s;""", (senderUser,))
-        msgQuery = cur.mogrify("""INSERT INTO chat message VALUES  %s;""", (message,))
+        msgQuery = cur.mogrify("""INSERT INTO chat (message) VALUES  %s;""", (message,))
+        cur.execute(userQuery)
         cur.execute(msgQuery)
         print("message added to database")
         conn.commit()
@@ -344,31 +345,33 @@ def on_login(data):
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     print('connected')
     
-    userQuery = cur.mogrify("select email from users where email = %s", (userEmail,))
-    cur.execute(userQuery)
-    userResult = cur.fetchone()
+    # userQuery = cur.mogrify("select email from users where email = %s", (userEmail,))
+    # cur.execute(userQuery)
+    # userResult = cur.fetchone()
     
-    if userResult:
-        print 'already there'
-        loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (userEmail, pw,))
-        cur.execute(loginQuery) 
-        print ('query executed')
     
-        result = cur.fetchone()
-        if result:
-            print('logged in!')
-            print('saving information to the session...')
-            #needs work to pass to javascript to limit the message send function
-            #session['logged'] = json.dumps('true')
-            session['logged'] = 1
-            session['username'] = result['username']
-            emit('logged', {'logged_in' : session['logged'] })
-            return redirect(url_for('mainIndex'))
-        else:
-            print ('incorrect login information')
-            session['logged'] = 0
-            emit ('logged',{'logged_in' : session['logged'] })
-            return redirect(url_for('login'))
+    print 'already there'
+    loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (userEmail, pw,))
+    cur.execute(loginQuery) 
+    print ('query executed')
+
+    result = cur.fetchone()
+    print result
+    if result:
+        print('logged in!')
+        print('saving information to the session...')
+        #needs work to pass to javascript to limit the message send function
+        #session['logged'] = json.dumps('true')
+        session['logged'] = 1
+        session['username'] = result[0]
+        print session['username']
+        emit('logged', {'logged_in' : session['logged'] })
+        #return redirect(url_for('mainIndex'))
+    else:
+        print ('incorrect login information')
+        session['logged'] = 0
+        emit ('logged',{'logged_in' : session['logged'] })
+        #return redirect(url_for('login'))
 
 # def loggedIn(logged):
 #     log = logged
