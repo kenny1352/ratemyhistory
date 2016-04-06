@@ -18,7 +18,8 @@ ISSChatApp.controller('ChatController', function($scope) {
    $scope.name = '';
    $scope.email = '';
    $scope.password = '';
-   // $scope.text = '';
+   $scope.user='';
+   $scope.text = '';
    // $scope.search = '';
    // $scope.found = [];
    
@@ -35,7 +36,7 @@ ISSChatApp.controller('ChatController', function($scope) {
   
    $scope.send = function send(){
       console.log('Sending message: ', $scope.text);
-      socket.emit('message', $scope.text);
+      socket.emit('message', {'text' : $scope.text});
       $scope.text = '';
    };
    
@@ -44,21 +45,24 @@ ISSChatApp.controller('ChatController', function($scope) {
    $scope.processLogin = function processLogin() {
       console.log("Trying to log in");
       //login('hide');
-      var temp = $('email').val();
-      var temp2 = $('password').val();
-      // socket.emit('userLogin', {'email' : $scope.email, 'password' : $scope.password});
-      socket.emit('userLogin', {'email' : temp, 'password' : temp2});
+      // var temp = $('email').val();
+      // var temp2 = $('password').val();
+      socket.emit('userLogin', {'email' : $scope.email, 'password' : $scope.password});
+      // socket.emit('userLogin', {'email' : temp, 'password' : temp2});
       console.log("After login emit");
       $scope.password = '';
    };
    
    socket.on('logged', function(data) {
       logged_in = data['logged_in'];
+      //user = data['username']
       console.log("checking login");
       if (logged_in == 1) {
          console.log("logged in");
          $scope.password = '';
          $scope.loggedIn = 'false';
+         //$scope.user=data['username'];
+         //console.log('user', $scope.user);
          $("#logout_button").show();
          $("#login_button").hide();
          $("#send_button").show();
