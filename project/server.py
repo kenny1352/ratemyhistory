@@ -38,6 +38,7 @@ def makeConnection():
     
     
     session['username'] = ''
+    session['loggedIn']=0
     print('connected')
     
     
@@ -71,6 +72,8 @@ def new_message(message):
         print('senderUser: ' + str(senderUser))
         userQuery = cur.mogrify("""INSERT INTO usersChat (sender) VALUES %s;""", (senderUser,))
         msgQuery = cur.mogrify("""INSERT INTO chat (message) VALUES  %s;""", (message,))
+        print userQuery
+        print msgQuery
         cur.execute(userQuery)
         cur.execute(msgQuery)
         print("message added to database")
@@ -210,18 +213,18 @@ def profile():
     
     return render_template('anotherProfile.html', pageInfo=entry, SelectedMenu = 'Profile')  
     
-@app.route('/charts.html')
-def charts():
-    print 'in charts'
+# @app.route('/charts.html')
+# def charts():
+#     print 'in charts'
     
-    return render_template('charts.html', SelectedMenu = 'Charts')
+#     return render_template('charts.html', SelectedMenu = 'Charts')
     
     
-@app.route('/tables.html')
-def tables():
-    print 'in tables'
+# @app.route('/tables.html')
+# def tables():
+#     print 'in tables'
     
-    return render_template('tables.html', SelectedMenu = 'Tables')
+#     return render_template('tables.html', SelectedMenu = 'Tables')
     
     
 @app.route('/register.html', methods=['GET','POST'])
@@ -331,46 +334,48 @@ def on_identify(message):
  
     
 @socketio.on('userLogin', namespace='/iss')
-def on_login(data):
+def on_login():
     print "in logincheck"
-    pw = data['password']
-    userEmail = data['email']
+    # pw = data['password']
+    # userEmail = data['email']
     
-    #print (user)
-    print (userEmail)
-    print 'login '  + pw
-    #session['logged'] = 0
-    
-    conn = connectToDB()
-    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-    print('connected')
-    
-    # userQuery = cur.mogrify("select email from users where email = %s", (userEmail,))
-    # cur.execute(userQuery)
-    # userResult = cur.fetchone()
-    
-    
-    print 'already there'
-    loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (userEmail, pw,))
-    cur.execute(loginQuery) 
-    print ('query executed')
-
-    result = cur.fetchone()
-    print result
-    if result:
-        print('logged in!')
-        print('saving information to the session...')
-        #needs work to pass to javascript to limit the message send function
-        #session['logged'] = json.dumps('true')
-        session['logged'] = 1
-        session['username'] = result[0]
-        print session['username']
-        emit('logged', {'logged_in' : session['logged'] })
-        #return redirect(url_for('mainIndex'))
-    else:
-        print ('incorrect login information')
-        session['logged'] = 0
+    if 'username' in session:
         emit ('logged',{'logged_in' : session['logged'] })
+    #print (user)
+    # print (userEmail)
+    # print 'login '  + pw
+    # #session['logged'] = 0
+    
+    # conn = connectToDB()
+    # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    # print('connected')
+    
+    # # userQuery = cur.mogrify("select email from users where email = %s", (userEmail,))
+    # # cur.execute(userQuery)
+    # # userResult = cur.fetchone()
+    
+    
+    # print 'already there'
+    # loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (userEmail, pw,))
+    # cur.execute(loginQuery) 
+    # print ('query executed')
+
+    # result = cur.fetchone()
+    # print result
+    # if result:
+    #     print('logged in!')
+    #     print('saving information to the session...')
+    #     #needs work to pass to javascript to limit the message send function
+    #     #session['logged'] = json.dumps('true')
+    #     session['loggedIn'] = 1
+    #     session['username'] = result[0]
+    #     print session['username']
+    #     emit('logged', {'logged_in' : session['logged'] })
+    #     #return redirect(url_for('mainIndex'))
+    # else:
+    #     print ('incorrect login information')
+    #     session['loggedIn'] = 0
+    #     emit ('logged',{'logged_in' : session['logged'] })
         #return redirect(url_for('login'))
 
 # def loggedIn(logged):
@@ -380,40 +385,48 @@ def on_login(data):
 @socketio.on('logout', namespace='/iss')
 def on_disconnect(data):
     print("i am here")
-    session['logged'] = 0
+    session['loggedIn'] = 0
     emit('logged', {'logged_in' : session['logged']})
     print 'user disconnected'
 
 
-
-
-@app.route('/login.html')
+# need to login in app.rout('/login') and create session variable in the app.route so that it carries across sessions
+# ng-init LOOK THIS UPs
+@app.route('/login.html', methods=['GET', 'POST'])
 def login():
     print 'in login'
-    # conn = connectToDB()
-    # cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    conn = connectToDB()
+    cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     
-    # if request.method == 'POST':
-    #     print "HI"
-    #     email = request.form['email']
-    #     password = request.form['password']
-
-    #     loginQuery = cur.mogrify("select Username, Email from users WHERE Email = %s AND Password = crypt(%s, Password)" , (email, password,))
-    #     cur.execute(loginQuery)
-    #     print loginQuery
-    #     result = cur.fetchall()
-    #     fullResult = result[0]
-
-
-    #     print('logged in')
-    #     print('name = ', fullResult['username'])
-    #     session['userName'] = fullResult['username']
-    #     session['loggedIn'] = 'Yes'
-    #     session['email'] = fullResult['email']
-    #     print session['userName']
+    if request.method == 'POST':
+        print "in request"
+        email = request.form['email']
+        password = request.form['password']
+        print email
+        print password
+        try:
+            loginQuery = cur.mogrify("SELECT Username, Email FROM users WHERE Email = %s AND Password = crypt(%s, Password);" , (email, password,))
+            print loginQuery
+            cur.execute(loginQuery)
+            print loginQuery
+            result = cur.fetchone()
+            #result = result
+            print ("result")
             
-    #     return redirect(url_for('mainIndex'))
-            
+            print('logged in')
+            print('name = ', result['username'])
+            session['userName'] = result['username']
+            session['logged'] = 1
+            session['email'] = result['email']
+            print session['userName']
+            socketio.emit('userLogin')    
+            return redirect(url_for('mainIndex'))
+        except Exception as e:
+            print(e)
+            #print "passwords didnt match"
+            print "error logging in"
+            session['logged'] = 0
+            return redirect(url_for('login'))
     
         
     return render_template('login.html', SelectedMenu = 'Login')
@@ -423,7 +436,7 @@ def login():
 def logout():
     print('removing session variables')
     del session['userName']
-    session['loggedIn'] = 'No'
+    session['loggedIn'] = 0
     #print session['userName']
     #session['userName'].close()
     
