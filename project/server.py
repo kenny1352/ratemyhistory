@@ -16,6 +16,8 @@ app.config['SECRET_KEY'] = 'secret!'
 
 socketio = SocketIO(app)
 
+messages = []
+users = {}
 def connectToDB():
     #change connection to session db
     connectionString = 'dbname=ratemyhistory user=assist password=assist host=localhost'
@@ -84,8 +86,23 @@ def new_message(message):
     except:
         print("Error inserting")
         conn.rollback()
-
-
+# I added
+# @socketio.on('message', namespace='/iss')
+# def new_message(message):
+#     print "IN MESSAGE!"
+#     conn = connectToDB()
+#     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+#     print "CONNECTED IN MESSAGE", message, " " , users[session['uuid']]['username']
+#     tmp ={'text': message, 'name': users[session['uuid']]['username']}
+    
+#     cur.execute("""INSERT INTO userschat ( chat_id, users) VALUES(%s, %s); """,
+#     (users[session['uuid']]['id'], users[session['uuid']]['username']))
+#     conn.commit()
+#     print("tmp: ",tmp)
+#     print ("message: ", message, "ID: ",users[session['uuid']]['id'] )
+#     messages.append(tmp)
+#     emit('message', tmp, broadcast=True)
+# # end I added
 
 print ("before app route")
 
@@ -399,7 +416,7 @@ def login():
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     
     if request.method == 'POST':
-        print "in request"
+        print "in request login"
         email = request.form['email']
         password = request.form['password']
         print email
@@ -408,10 +425,10 @@ def login():
             loginQuery = cur.mogrify("SELECT Username, Email FROM users WHERE Email = %s AND Password = crypt(%s, Password);" , (email, password,))
             print loginQuery
             cur.execute(loginQuery)
-            print loginQuery
+            print "EXECUTED: ", loginQuery 
             result = cur.fetchone()
             #result = result
-            print ("result")
+            print (result)
             
             print('logged in')
             print('name = ', result['username'])
@@ -428,7 +445,7 @@ def login():
             session['logged'] = 0
             return redirect(url_for('login'))
     
-        
+     
     return render_template('login.html', SelectedMenu = 'Login')
     
     

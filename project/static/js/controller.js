@@ -34,12 +34,15 @@ ISSChatApp.controller('ChatController', function($scope) {
    });
    
   
-   $scope.send = function(){
+   // $scope.send = function(){
+   $scope.send = function send(){   
       console.log('Sending message: ', $scope.text);
-      socket.emit('message', {'text' : $scope.text});
+      socket.emit('massage', $scope.text);
+      // socket.emit('message', {'text' : $scope.text});
       $scope.text = '';
    };
    
+
    
    //GETTING RID OF THIS DONT CHANGE YET
    $scope.processLogin = function () {
@@ -50,8 +53,19 @@ ISSChatApp.controller('ChatController', function($scope) {
       //socket.emit('userLogin', {'email' : $scope.email, 'password' : $scope.password});
       // socket.emit('userLogin', {'email' : temp, 'password' : temp2});
       console.log("After login emit");
-      $scope.password = '';
+      // $scope.password = '';
+      socket.emit('login', $scope.password); //Maddy Added this and commented the line above 
+      console.log("logged in", $scope.name);
    };
+   // Maddy added this
+       $scope.setName2 = function setName2() {
+  
+        socket.emit('identify', $scope.name2);
+        $scope.name = $scope.name2;
+        $scope.$apply();
+        socket.emit('identify', $scope.name2)
+       };
+   
    
    socket.on('logged', function(data) {
       logged_in = data['logged_in'];
