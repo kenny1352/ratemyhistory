@@ -80,7 +80,16 @@ ISSChatApp.controller('ChatController', function($scope) {
          $scope.loggedIn = 'false';
          $scope.keepMsgUp = 1;
          $scope.user=data['username'];
-         //console.log('user', $scope.user);
+         console.log('user ', user);
+         if (user == 'admin'){
+            console.log("is admin page displayed")
+            $("#addEventName").show()
+            $("#addEventDesc").show()
+            $("#addEventLocation").show()
+            $("#addyear").show()
+            $("#addSenderEmail").show()
+            $("#addSubmit").show()
+         }
          $("#logout_button").show();
          $("#login_button").hide();
          if ($scope.keepMsgUp == 1 && $scope.user != ''){
@@ -117,7 +126,12 @@ ISSChatApp.controller('ChatController', function($scope) {
    
    socket.on('connect', function() {
       console.log('connected'); 
-      
+      $("#addEventName").hide()
+      $("#addEventDesc").hide()
+      $("#addEventLocation").hide()
+      $("#addyear").hide()
+      $("#addSenderEmail").hide()
+      $("#addSubmit").hide()
       $("#send_button").hide();
       $("#chatText").hide();
       $("#msgpane").hide();

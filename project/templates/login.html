@@ -21,14 +21,12 @@
                         </ol>
                     </div>
                 </div>
-                <!--<form ng-submit="processLogin()">-->
-<!-- Had help from http://stackoverflow.com/questions/11930253/how-to-create-a-login-page-when-username-and-password-is-equal-in-html -->
+                
+                <!--THIS WORKS DONT CHANGE THE FORM!!!!-->
                 <form role="form" method="POST" action="/login.html">
                         <fieldset>
                             <p>To use <i><strong>Rate My History</strong></i>, you must login first! <br>Please enter your email and password to begin your journey of rating history!</p>
                             Email: <br>
-                            <!--<input type="text" ng-model="name2" ng-change="setName2()" placeholder="Username"/> -->
-                            <!--subbed the line above for the one below and added setname2 dunction in js. loggin working-->
                             <input type="text" ng-model="email" name="email" value="" id="email">
                             <br>Password: <br>
                             <input type="password" ng-model="password" name="password" value="" id="password">
