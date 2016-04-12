@@ -275,11 +275,13 @@ def register():
             
             if (check == check2):
             
-                #dont have all users table datatypes, but we can work on that later
-                regAddQuery = cur.mogrify("""INSERT INTO users (Username, Email, Password, Firstname, Lastname, Company, Job, Address, City, Country, Phone, Fax)
-                    VALUES(%s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s, %s, %s, %s, %s);""", (request.form['userName'],request.form['email'],request.form['password'],
-                    request.form['firstName'],request.form['lastName'],request.form['comp'],request.form['prof'],request.form['address'],request.form['city'],
-                    request.form['country'],request.form['phoneNumber'],request.form['faxNumber']))
+                # THIS CAN STILL BE USED, BUT CURRENTLY DOESNT SUPPORT 3NF TABLES AND THE DATA OUR TABLE NEEDS
+                # regAddQuery = cur.mogrify("""INSERT INTO users (Username, Email, Password, Firstname, Lastname, Company, Job, Address, City, Country, Phone, Fax)
+                #     VALUES(%s, %s, crypt(%s, gen_salt('bf')), %s, %s, %s, %s, %s, %s, %s, %s, %s);""", (request.form['userName'],request.form['email'],request.form['password'],
+                #     request.form['firstName'],request.form['lastName'],request.form['comp'],request.form['prof'],request.form['address'],request.form['city'],
+                #     request.form['country'],request.form['phoneNumber'],request.form['faxNumber']))
+                
+                regAddQuery = cur.mogrify("INSERT INTO users (Username, Email, Password) VALUES(%s, %s, crypt(%s, gen_salt('bf')));",(request.form['userName'],request.form['email'],request.form['password'],))
                 print (regAddQuery)
                 
                 cur.execute(regAddQuery)
@@ -287,8 +289,10 @@ def register():
                 #commented commit until I know the query is printing right
                 conn.commit()
                 print("person registered")
+                return redirect(url_for('mainIndex'))
             else:
                 print("passwords dont match, cant register")
+                return redirect(url_for('register'))
             
         else:
             print ("email is taken so user exists")
