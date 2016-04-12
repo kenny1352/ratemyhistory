@@ -20,6 +20,7 @@ ISSChatApp.controller('ChatController', function($scope) {
    $scope.password = '';
    $scope.user='';
    $scope.text = '';
+   $scope.keepMsgUp = 0;
    // $scope.search = '';
    // $scope.found = [];
    
@@ -55,22 +56,27 @@ ISSChatApp.controller('ChatController', function($scope) {
    
    socket.on('logged', function(data) {
       logged_in = data['logged_in'];
-      //user = data['username']
+      user = data['username']
       console.log("checking login");
+      console.log("user is: " + user)
       if (logged_in == 1) {
          console.log("logged in");
          $scope.password = '';
          $scope.loggedIn = 'false';
-         //$scope.user=data['username'];
+         $scope.keepMsgUp = 1;
+         $scope.user=data['username'];
          //console.log('user', $scope.user);
          $("#logout_button").show();
          $("#login_button").hide();
-         $("#send_button").show();
-         $("#chatText").show();
-         $("#msgpane").show();
+         if ($scope.keepMsgUp == 1 && $scope.user != ''){
+            $("#send_button").show();
+            $("#chatText").show();
+            $("#msgpane").show();
+         }
          $scope.$apply();
       } else {
          console.log("logged out");
+         $scope.keepMsgUp = 0;
          $("#logout_button").hide();
          $("#login_button").show();
          $("#send_button").hide();
@@ -87,7 +93,8 @@ ISSChatApp.controller('ChatController', function($scope) {
 
    $scope.logout = function() {
       console.log("logging out");
-      //login('hide');
+      $scope.keepMsgUp = 0;
+      $scope.name2 = '';
       socket.emit('logout', {});
       //$scope.$apply();
    };

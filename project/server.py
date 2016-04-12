@@ -4,7 +4,7 @@ import psycopg2
 import psycopg2.extras
 import crypt, getpass, pwd
 import time
-import smtplib
+import smtplib, json
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import date
@@ -37,9 +37,12 @@ def makeConnection():
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     
     
-    session['username'] = ''
-    session['loggedIn']=0
-    print('connected')
+    if 'username' in session:
+        print session['username']
+        print session['logged']
+        session['logged']= 1
+        emit('logged', {'logged_in' : session['logged'], 'username' : session['username'] })
+        print('connected')
     
     
     try:
@@ -94,6 +97,7 @@ print ("before app route")
 @app.route('/')
 def mainIndex():
     print 'in hello world'
+    #print session['username']
     # not sure we need this, but might be helpful later on
     logged = 0
     if 'username' in session:
@@ -334,12 +338,13 @@ def on_identify(message):
  
     
 @socketio.on('userLogin', namespace='/iss')
-def on_login():
+def on_login(data):
     print "in logincheck"
     # pw = data['password']
-    # userEmail = data['email']
-    
-    if 'username' in session:
+    username = data['username']
+    logging = data['logged']
+    print username
+    if (logging==1):
         emit ('logged',{'logged_in' : session['logged'] })
     #print (user)
     # print (userEmail)
@@ -412,14 +417,14 @@ def login():
             result = cur.fetchone()
             #result = result
             print ("result")
-            
+            #session['logged'] = json.dumps('true')
             print('logged in')
-            print('name = ', result['username'])
-            session['userName'] = result['username']
+           # print('name = ', result['username'])
+            session['username'] = result['username']
             session['logged'] = 1
             session['email'] = result['email']
-            print session['userName']
-            socketio.emit('userLogin')    
+            print ("username is : ", session['username'])
+            #socketio.emit('userLogin', {'logged_in' : session['logged'], 'username' : session['username']})    
             return redirect(url_for('mainIndex'))
         except Exception as e:
             print(e)
@@ -432,11 +437,12 @@ def login():
     return render_template('login.html', SelectedMenu = 'Login')
     
     
-@app.route('/logout')
+@app.route('/logout.html')
 def logout():
     print('removing session variables')
-    del session['userName']
-    session['loggedIn'] = 0
+    if 'username' in session:
+        del session['userName']
+        session['loggedIn'] = 0
     #print session['userName']
     #session['userName'].close()
     
