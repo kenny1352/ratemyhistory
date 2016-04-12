@@ -37,7 +37,7 @@ ISSChatApp.controller('ChatController', function($scope) {
   
    $scope.send = function(){
       console.log('Sending message: ', $scope.text);
-      socket.emit('message', {'text' : $scope.text});
+      socket.emit('message',$scope.text);
       $scope.text = '';
    };
    

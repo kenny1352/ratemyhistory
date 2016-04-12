@@ -56,7 +56,7 @@ def makeConnection():
         print messages
         
         for message in messages:
-            tmp = {'text': message[1], 'name': message[0] }
+            tmp = {'name': message[1],  'text': message[0]}
             print(message)
             emit('message', tmp)
     
@@ -69,12 +69,12 @@ def new_message(message):
     conn = connectToDB()
     cur = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
     senderUser = session['username']
-
+    
     try:
         print('message: ' + str(message))
         print('senderUser: ' + str(senderUser))
-        userQuery = cur.mogrify("""INSERT INTO usersChat (sender) VALUES %s;""", (senderUser,))
-        msgQuery = cur.mogrify("""INSERT INTO chat (message) VALUES  %s;""", (message,))
+        userQuery = cur.mogrify("INSERT INTO usersChat (sender) VALUES (%s);", (senderUser,))
+        msgQuery = cur.mogrify("INSERT INTO chat (message) VALUES  (%s);", (message,))
         print userQuery
         print msgQuery
         cur.execute(userQuery)
@@ -84,7 +84,8 @@ def new_message(message):
         
         tmp = {'text': message, 'name': senderUser}
         emit('message', tmp, broadcast=True)
-    except:
+    except Exception as e:
+        print type(e)
         print("Error inserting")
         conn.rollback()
 
@@ -441,7 +442,7 @@ def login():
 def logout():
     print('removing session variables')
     if 'username' in session:
-        del session['userName']
+        del session['username']
         session['loggedIn'] = 0
     #print session['userName']
     #session['userName'].close()
