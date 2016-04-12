@@ -92,6 +92,7 @@ ISSChatApp.controller('ChatController', function($scope) {
          }
          $("#logout_button").show();
          $("#login_button").hide();
+         $("#loginbutton").hide();
          if ($scope.keepMsgUp == 1 && $scope.user != ''){
             $("#send_button").show();
             $("#chatText").show();
