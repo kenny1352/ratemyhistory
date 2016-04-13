@@ -236,7 +236,7 @@
                     </li>
                     <li class="search">
                        <form action = "/search.html">
-                        <div style="width:215px;height:40px;padding:5px;border:2px solid white;">
+                       <div style="width:215px;height:40px;padding:5px;">
                         <input type="text" value="" name="searchengine", placeholder="Search"/>
                         <input type="image" src="http://findicons.com/files/icons/2260/iphone_toolbar/26/magnifyingglass.png" width="15" alt="Search">
                         </div>
@@ -265,7 +265,7 @@
                         <div class="scroll" id="msgpane">
                              <p  ng-repeat = "msg in messages" >
                              <b ng-bind="msg.name"></b>:&nbsp;
-                             <span ng-bind="msg.text"></span>
+                             <span ng-bind="msg.text" ng-style="{'width': '25px'}"></span>
                              </p>
                          </div>
                          
