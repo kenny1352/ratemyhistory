@@ -214,12 +214,10 @@
                     </li>
                     <li class="search">
                        <form action = "/search.html">
-<<<<<<< HEAD
-                       <div style="width:215px;height:40px;padding:5px;">
-=======
+
                            <!--border:2px solid white;-->
                         <div style="width:215px;height:40px;padding:5px;">
->>>>>>> da63bbebaa14320677a6587f82d80f01e7ee1f84
+
                         <input type="text" value="" name="searchengine", placeholder="Search"/>
                         <input type="image" src="http://findicons.com/files/icons/2260/iphone_toolbar/26/magnifyingglass.png" width="15" alt="Search">
                         </div>
@@ -240,14 +238,14 @@
                         <div class="scroll" id="msgpane">
                              <p  ng-repeat = "msg in messages" >
                              <b ng-bind="msg.name"></b>:&nbsp;
-                             <span ng-bind="msg.text" ng-style="{'width': '25px'}"></span>
+                             <span ng-bind="msg.text"></span>
                              </p>
                          </div>
                          
                          <form ng-submit="send()">
                               <!--<input type="text" ng-model="text" id=chatText size="30"  placeholder="..">-->
                               <!--Added line above to handle sending messages. Maddy -->
-                                <input type="text"  ng-model="text" size="25"  placeholder=".." id=chatText>
+                                <input type="text"  ng-model="text" size="25"  placeholder="Type message here" id=chatText>
                                 <br><br>
                                 <input type="submit" class="span1 btn btn-primary" value="Send"  id="send_button">
                              
