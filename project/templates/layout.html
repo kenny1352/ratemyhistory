@@ -56,7 +56,7 @@
         #rcorners2 {
             border-radius: 25px;
             border: 4px solid white;
-            width: 100px;
+            width: 95px;
             height: 100px;
         }
         
@@ -72,8 +72,9 @@
         }    
         
         div.scroll {
+            
             background-color: #F8F8F8;
-            width: 250px;
+            width:  223px;
             height: 200px;
             overflow: scroll;
         }
@@ -168,30 +169,7 @@
                         </li>
                     </ul>
                 <</li>-->
-                <!--<li class="dropdown">>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i> <b class="caret"></b></a>
-                    <ul class="dropdown-menu alert-dropdown">
-                        <li>
-                            <a href="#">New Date <span class="label label-default">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Trending <span class="label label-primary">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Check Out<span class="label label-success">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Updates<span class="label label-info">Alert Badge</span></a>
-                        </li>
-                        <li>
-                            <a href="#">Breaking News<span class="label label-warning">Alert Badge</span></a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <a href="#">View All</a>
-                        </li>
-                    </ul>
-                <</li>-->
+                
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> 
                          {% if 'username' in session %}
@@ -236,7 +214,8 @@
                     </li>
                     <li class="search">
                        <form action = "/search.html">
-                        <div style="width:215px;height:40px;padding:5px;border:2px solid white;">
+                           <!--border:2px solid white;-->
+                        <div style="width:215px;height:40px;padding:5px;">
                         <input type="text" value="" name="searchengine", placeholder="Search"/>
                         <input type="image" src="http://findicons.com/files/icons/2260/iphone_toolbar/26/magnifyingglass.png" width="15" alt="Search">
                         </div>
@@ -244,24 +223,16 @@
                     </li>
                 <li class="container" >
                 <div class="row" >
-                <!--<div style type="width:215px;height:100;padding:5px;border:2px solid white;">-->
-                    
-
-                      
-                    <!--<div class="col-md-8">-->
-                    <!--<li {% if SelectedMenu == 'Live Chat' %} class="active" {% endif %}>-->
-
-
-                        <!--<i class="fa fa-fw fa-pencil-square-o"></i>-->
-                           <!--<a href="#"> Live Chat</a>-->
+       
                         <br>
                         <i class="fa fa-fw fa-pencil-square-o"></i>
                         
                            <a href="#"> Live Chat</a>
-                            
+                            <br>
                             <br>
 
                          <!--</li>  -->
+                         
                         <div class="scroll" id="msgpane">
                              <p  ng-repeat = "msg in messages" >
                              <b ng-bind="msg.name"></b>:&nbsp;
